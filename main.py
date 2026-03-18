@@ -29,30 +29,6 @@ templates = Jinja2Templates(directory="templates")
 UPLOAD_DIR = "uploads"
 OUTPUT_DIR = "output"
 
-routes = [
-    "/",
-    "/image-to-pdf",
-    "/pdf-to-word",
-]
-
-@app.get("/sitemap.xml")
-def sitemap():
-    xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
-    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-
-    for route in routes:
-        xml += f"""
-        <url>
-            <loc>{BASE_URL}{route}</loc>
-            <lastmod>{datetime.now().date()}</lastmod>
-            <changefreq>weekly</changefreq>
-            <priority>0.8</priority>
-        </url>
-        """
-
-    xml += '</urlset>'
-    return Response(content=xml, media_type="application/xml")
-
 # ------------------ PAGES ------------------
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
@@ -66,9 +42,9 @@ async def pdf_convert(request: Request):
 async def image_page(request: Request):
     return templates.TemplateResponse("Image_Convert.html", {"request": request})
 
-@app.get("/about", response_class=HTMLResponse)
-async def about_page(request: Request):
-    return templates.TemplateResponse("About.html", {"request": request})
+# @app.get("/about", response_class=HTMLResponse)
+# async def about_page(request: Request):
+#     return templates.TemplateResponse("About.html", {"request": request})
 
 @app.get("/resize-image", response_class=HTMLResponse)
 async def resize_page(request: Request):
@@ -87,6 +63,10 @@ async def delete_file_delayed(path: str, delay_seconds: int = 300):
             os.remove(path)
     except Exception:
         pass
+
+@app.get("/about", response_class=HTMLResponse)
+async def api_page(request: Request):
+    return templates.TemplateResponse("api.html", {"request": request})
 
 @app.get("/privacy", response_class=HTMLResponse)
 async def privacy_page(request: Request):
@@ -117,6 +97,80 @@ async def get_llms_txt():
 async def get_robots_txt():
     """Serve the robots.txt file for Search Engines (Google/Bing)"""
     return FileResponse("robots.txt", media_type="text/plain")
+
+@app.get("/sitemap.xml", response_class=FileResponse)
+async def get_sitemap_xml():
+    """Serve the sitemap.xml for Search Engine Indexing"""
+    return FileResponse("sitemap.xml", media_type="application/xml")
+
+
+# --- SEO METADATA DICTIONARIES ---
+PDF_SEO = {
+    "merge-pdf": {"title": "Merge PDF Files Online for Free", "desc": "Combine multiple PDFs into one document securely. 100% free merge tool."},
+    "split-pdf": {"title": "Split PDF Pages & Extract Pages Online", "desc": "Extract pages from your PDF or split it into multiple smaller files instantly."},
+    "compress-pdf": {"title": "Compress PDF Size Online", "desc": "Reduce PDF file size for emailing and web uploads without losing quality."},
+    "pdf-to-word": {"title": "Convert PDF to Word Document", "desc": "Convert your PDF files to editable DOCX Word documents accurately."},
+    "pdf-to-excel": {"title": "Convert PDF to Excel Spreadsheet", "desc": "Extract PDF tables into editable Excel XLSX spreadsheets."},
+    "word-to-pdf": {"title": "Convert Word to PDF", "desc": "Turn DOC and DOCX files into perfect PDF documents."},
+    "excel-to-pdf": {"title": "Convert Excel to PDF", "desc": "Turn XLS and XLSX spreadsheets into easy-to-read PDFs."},
+    "ppt-to-pdf": {"title": "Convert PowerPoint to PDF", "desc": "Turn PPT and PPTX presentations into PDF documents."},
+    "pdf-to-ppt": {"title": "Convert PDF to PowerPoint", "desc": "Turn PDFs into editable PPTX slideshows."},
+    "pdf-to-image": {"title": "Convert PDF to JPG/PNG", "desc": "Extract pages from your PDF as high-quality image files."},
+    "image-to-pdf": {"title": "Convert Images to PDF", "desc": "Combine JPG, PNG, and WEBP images into a single PDF document."},
+    "extract-images": {"title": "Extract Images from PDF", "desc": "Download all embedded pictures and photos from inside a PDF."},
+    "watermark-pdf": {"title": "Add Watermark to PDF", "desc": "Stamp text or logos over your PDF pages for security."},
+    "protect-pdf": {"title": "Password Protect PDF", "desc": "Encrypt and lock your PDF with a secure password."},
+    "unlock-pdf": {"title": "Unlock PDF Password", "desc": "Remove passwords and security encryption from PDF files."},
+    "remove-pages": {"title": "Remove Pages from PDF", "desc": "Delete unwanted pages from your PDF document."},
+    "reorder-pages": {"title": "Reorder PDF Pages", "desc": "Rearrange and sort the pages in your PDF document."},
+}
+
+IMAGE_SEO = {
+    "compress": {"title": "Compress Image to Specific KB Size", "desc": "Reduce JPG/PNG file sizes up to 80% without losing quality."},
+    "compress-exact": {"title": "Compress Image to 50KB / 100KB", "desc": "Shrink image file size to an exact KB limit for portals and applications."},
+    "jpg-to-png": {"title": "Convert JPG to PNG", "desc": "Convert JPG images to PNG format with high accuracy."},
+    "png-to-jpg": {"title": "Convert PNG to JPG", "desc": "Convert PNG images to JPG format instantly."},
+    "heic-to-jpg": {"title": "Convert HEIC to JPG", "desc": "Change Apple iPhone HEIC photos into standard JPGs."},
+    "to-webp": {"title": "Convert Image to WebP", "desc": "Convert JPG and PNG to next-gen WebP format for fast websites."},
+    "resize": {"title": "Resize Image Dimensions", "desc": "Change image width and height easily while keeping aspect ratio."},
+    "crop": {"title": "Crop Image Online", "desc": "Crop pictures to perfect squares or specific aspect ratios."},
+    "rotate": {"title": "Rotate & Flip Images", "desc": "Rotate images 90 degrees or flip them horizontally/vertically."},
+    "bg-remove": {"title": "Remove Background from Image AI", "desc": "Automatically erase backgrounds from photos using AI."},
+    "blur-face": {"title": "Blur Faces in Photos", "desc": "Automatically detect and blur faces for privacy and security."},
+    "upscale": {"title": "AI Image Upscaler", "desc": "Increase image resolution and sharpen details with AI."},
+    "watermark": {"title": "Add Watermark to Image", "desc": "Protect your photos by stamping custom text over them."},
+    "wm-remover": {"title": "Remove Watermark from Image", "desc": "Use AI inpainting to clean unwanted marks and text from pictures."},
+    "extract-text": {"title": "Extract Text from Image (OCR)", "desc": "Read and copy text from screenshots and photos automatically."},
+}
+
+# --- DYNAMIC SEO ROUTES ---
+
+# 1. PDF Tools Route
+@app.get("/pdf/{tool_id}", response_class=HTMLResponse)
+async def pdf_tool_page(request: Request, tool_id: str):
+    # Fallback to default if tool doesn't exist
+    seo_data = PDF_SEO.get(tool_id, {"title": "PDF Tools - FormatConverter", "desc": "Professional PDF editing tools."})
+    return templates.TemplateResponse("PDF_Convert.html", {
+        "request": request, 
+        "tool_id": tool_id, 
+        "seo_title": seo_data["title"], 
+        "seo_desc": seo_data["desc"]
+    })
+
+# 2. Image Tools Route
+@app.get("/image/{tool_id}", response_class=HTMLResponse)
+async def image_tool_page(request: Request, tool_id: str):
+    seo_data = IMAGE_SEO.get(tool_id, {"title": "Image Tools - FormatConverter", "desc": "Professional image editing tools."})
+    return templates.TemplateResponse("Image_Convert.html", {
+        "request": request, 
+        "tool_id": tool_id, 
+        "seo_title": seo_data["title"], 
+        "seo_desc": seo_data["desc"]
+    })
+
+# (Keep your /about, /privacy, etc. routes here as well!)
+
+
 
 # ------------------ PDF CONVERSION FUNCTIONS ------------------
 def pdf_to_word_converter(input_path: str) -> str:

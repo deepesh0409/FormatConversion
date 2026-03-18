@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>PDF Format Converter – Intelligent PDF Conversion</title>
+    
+    <title>{{ seo_title }} – FormatConverter</title>
+    <meta name="description" content="{{ seo_desc }}">
+
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>" />
     <link href="/Static/output.css" rel="stylesheet" />
   </head>
@@ -12,7 +15,7 @@
   <body class="bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen flex flex-col">
     
     <!-- BULLETPROOF NAVBAR -->
-    <header class="sticky top-0 z-[100] w-full bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+    <header class="sticky top-0 z-100 w-full bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <div class="flex justify-between items-center h-16">
           
@@ -117,24 +120,24 @@
         </div>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          <a href="/pdf_Convertion?tool=merge-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📚</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Merge PDF</h3><p class="text-slate-400 text-sm">Combine multiple PDFs into a single document.</p></a>
-          <a href="/pdf_Convertion?tool=split-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">✂️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Split PDF</h3><p class="text-slate-400 text-sm">Extract pages or split PDFs into separate files.</p></a>
-          <a href="/pdf_Convertion?tool=compress-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📉</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Compress PDF</h3><p class="text-slate-400 text-sm">Reduce PDF size without losing quality.</p></a>
-          <a href="/pdf_Convertion?tool=pdf-to-word" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📄</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PDF to Word</h3><p class="text-slate-400 text-sm">Convert PDFs into editable DOCX files.</p></a>
-          <a href="/pdf_Convertion?tool=pdf-to-excel" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📊</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PDF to Excel</h3><p class="text-slate-400 text-sm">Extract tables instantly.</p></a>
-          <a href="/pdf_Convertion?tool=word-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📝</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Word to PDF</h3><p class="text-slate-400 text-sm">Convert Word documents into perfect PDFs.</p></a>
-          <a href="/pdf_Convertion?tool=excel-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📈</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Excel to PDF</h3><p class="text-slate-400 text-sm">Convert Excel spreadsheets into easy-to-read PDFs.</p></a>
-          <a href="/pdf_Convertion?tool=ppt-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📊</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PPT to PDF</h3><p class="text-slate-400 text-sm">Convert PowerPoint slides into a PDF document.</p></a>
-          <a href="/pdf_Convertion?tool=pdf-to-ppt" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📽️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PDF to PPT</h3><p class="text-slate-400 text-sm">Turn PDFs into editable PowerPoint slides.</p></a>
-          <a href="/pdf_Convertion?tool=pdf-to-image" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🖼️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PDF to Image</h3><p class="text-slate-400 text-sm">Convert each PDF page into high-quality PNG images.</p></a>
-          <a href="/pdf_Convertion?tool=image-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🖼️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Image to PDF</h3><p class="text-slate-400 text-sm">Combine multiple JPG/PNG images into one PDF.</p></a>
-          <a href="/pdf_Convertion?tool=extract-images" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📥</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Extract Images</h3><p class="text-slate-400 text-sm">Extract all embedded pictures from your PDF.</p></a>
-          <a href="/pdf_Convertion?tool=watermark-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">✏️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Add Watermark</h3><p class="text-slate-400 text-sm">Stamp custom text across all pages.</p></a>
-          <a href="/pdf_Convertion?tool=protect-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🔒</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Protect PDF</h3><p class="text-slate-400 text-sm">Encrypt your PDF with a secure password.</p></a>
-          <a href="/pdf_Convertion?tool=unlock-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🔓</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Unlock PDF</h3><p class="text-slate-400 text-sm">Remove password encryption from your PDF.</p></a>
-          <a href="/pdf_Convertion?tool=reorder-pages" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📑</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Reorder Pages</h3><p class="text-slate-400 text-sm">Change the order of pages in your PDF.</p></a>
-          <a href="/pdf_Convertion?tool=remove-pages" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🗑️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Remove Pages</h3><p class="text-slate-400 text-sm">Delete unwanted pages from your PDF.</p></a>
-          <a href="/pdf_Convertion?tool=rotate-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🔄</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Rotate PDF</h3><p class="text-slate-400 text-sm">Rotate all pages by 90, 180, or 270 degrees.</p></a>
+          <a href="/pdf/merge-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📚</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Merge PDF</h3><p class="text-slate-400 text-sm">Combine multiple PDFs into a single document.</p></a>
+          <a href="/pdf/split-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">✂️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Split PDF</h3><p class="text-slate-400 text-sm">Extract pages or split PDFs into separate files.</p></a>
+          <a href="/pdf/compress-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📉</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Compress PDF</h3><p class="text-slate-400 text-sm">Reduce PDF size without losing quality.</p></a>
+          <a href="/pdf/pdf-to-word" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📄</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PDF to Word</h3><p class="text-slate-400 text-sm">Convert PDFs into editable DOCX files.</p></a>
+          <a href="/pdf/pdf-to-excel" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📊</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PDF to Excel</h3><p class="text-slate-400 text-sm">Extract tables instantly.</p></a>
+          <a href="/pdf/word-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📝</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Word to PDF</h3><p class="text-slate-400 text-sm">Convert Word documents into perfect PDFs.</p></a>
+          <a href="/pdf/excel-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-xl mb-4">📈</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Excel to PDF</h3><p class="text-slate-400 text-sm">Convert Excel spreadsheets into easy-to-read PDFs.</p></a>
+          <a href="/pdf/ppt-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📊</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PPT to PDF</h3><p class="text-slate-400 text-sm">Convert PowerPoint slides into a PDF document.</p></a>
+          <a href="/pdf/pdf-to-ppt" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📽️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PDF to PPT</h3><p class="text-slate-400 text-sm">Turn PDFs into editable PowerPoint slides.</p></a>
+          <a href="/pdf/pdf-to-image" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🖼️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PDF to Image</h3><p class="text-slate-400 text-sm">Convert each PDF page into high-quality PNG images.</p></a>
+          <a href="/pdf/image-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-xl mb-4">🖼️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Image to PDF</h3><p class="text-slate-400 text-sm">Combine multiple JPG/PNG images into one PDF.</p></a>
+          <a href="/pdf/extract-images" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-xl mb-4">📥</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Extract Images</h3><p class="text-slate-400 text-sm">Extract all embedded pictures from your PDF.</p></a>
+          <a href="/pdf/watermark-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-xl mb-4">✏️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Add Watermark</h3><p class="text-slate-400 text-sm">Stamp custom text across all pages.</p></a>
+          <a href="/pdf/protect-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-xl mb-4">🔒</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Protect PDF</h3><p class="text-slate-400 text-sm">Encrypt your PDF with a secure password.</p></a>
+          <a href="/pdf/unlock-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div	div class="text-3xl mb-4">🔓</div><h3	class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Unlock PDF</h3><p	class="text-slate-400 text-sm">Remove password encryption from your PDF.</p></a>
+          <a href="/pdf/reorder-pages" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div	div class="text-3xl mb-4">📑</div><h3	class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Reorder Pages</h3><p	class="text-slate-400 text-sm">Change the order of pages in your PDF.</p></a>
+          <a href="/pdf/remove-pages" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div	div class="text-3xl mb-4">🗑️</div><h3	class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Remove Pages</h3><p	class="text-slate-400 text-sm">Delete unwanted pages from your PDF.</p></a>
+          <a href="/pdf/rotate-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🔄</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Rotate PDF</h3><p class="text-slate-400 text-sm">Rotate all pages by 90, 180, or 270 degrees.</p></a>
         </div>
       </section>
     </main>
@@ -233,8 +236,7 @@
         "reorder-pages": { name: "Reorder Pages", icon: "📑", desc: "Type the new page sequence separated by commas.", related:["split-pdf", "remove-pages"], extraInputPrompt: "New order (e.g. 3, 1, 2, 4)" }
       };
 
-      const params = new URLSearchParams(window.location.search);
-      const activeTool = params.get("tool") || "pdf-to-word";
+      const activeTool = "{{ tool_id }}";
       const isMultipleFilesTool = activeTool === "merge-pdf" || activeTool === "image-to-pdf";
 
       const fileInput = document.getElementById("fileInput");

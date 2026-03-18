@@ -1,6 +1,8 @@
 # Robots.txt for FormatConverter
 # This tells Google to scan all our main pages, but ignore our backend API
 
+Sitemap: https://formatconvertion-production.up.railway.app/sitemap.xml
+
 User-agent: *
 Allow: /
 
@@ -11,4 +13,3 @@ Disallow: /uploads/
 Disallow: /output/
 Disallow: /Static/
 
-Sitemap: https://formatconvertion-production.up.railway.app/sitemap.xml

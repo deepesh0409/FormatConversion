@@ -3,7 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image FormatConverter – Professional Image Tools</title>
+
+    <title>{{ seo_title }} – FormatConverter</title>
+    <meta name="description" content="{{ seo_desc }}">
+
     <link
       rel="icon"
       href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🖼️</text></svg>"
@@ -257,7 +260,7 @@
           class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
         >
           <a
-            href="/Image_Convertion?tool=compress"
+            href="/image/compress"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-4">📉</div>
@@ -269,7 +272,7 @@
             </p>
           </a>
           <a
-            href="/Image_Convertion?tool=rotate"
+            href="/image/rotate"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-4">🔄</div>
@@ -281,7 +284,7 @@
             </p>
           </a>
           <a
-            href="/Image_Convertion?tool=jpg-to-png"
+            href="/image/jpg-to-png"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-4">🖼️</div>
@@ -293,7 +296,7 @@
             </p>
           </a>
           <a
-            href="/Image_Convertion?tool=png-to-jpg"
+            href="/image/png-to-jpg"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-4">📸</div>
@@ -305,7 +308,7 @@
             </p>
           </a>
           <a
-            href="/Image_Convertion?tool=resize"
+            href="/image/resize"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-3">📐</div>
@@ -317,7 +320,7 @@
             </p>
           </a>
           <a
-            href="/Image_Convertion?tool=crop"
+            href="/image/crop"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-3">✂️</div>
@@ -329,7 +332,7 @@
             </p>
           </a>
           <a
-            href="/Image_Convertion?tool=upscale"
+            href="/image/upscale"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-2">🔍</div>
@@ -341,7 +344,7 @@
             </p>
           </a>
           <a
-            href="/Image_Convertion?tool=bg-remove"
+            href="/image/bg-remove"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-4">✂️</div>
@@ -353,7 +356,7 @@
             </p>
           </a>
           <a
-            href="/Image_Convertion?tool=to-webp"
+            href="/image/to-webp"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-4">🕸️</div>
@@ -365,7 +368,7 @@
             </p>
           </a>
           <a
-            href="/Image_Convertion?tool=heic-to-jpg"
+            href="/image/heic-to-jpg"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-4">📱</div>
@@ -377,7 +380,7 @@
             </p>
           </a>
           <a
-            href="/Image_Convertion?tool=blur-face"
+            href="/image/blur-face"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-3">👤</div>
@@ -389,7 +392,7 @@
             </p>
           </a>
           <a
-            href="/Image_Convertion?tool=watermark"
+            href="/image/watermark"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-3">🖋️</div>
@@ -401,7 +404,7 @@
             </p>
           </a>
           <a
-            href="/Image_Convertion?tool=wm-remover"
+            href="/image/wm-remover"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-3">🧼</div>
@@ -413,7 +416,7 @@
             </p>
           </a>
           <a
-            href="/Image_Convertion?tool=compress-exact"
+            href="/image/compress-exact"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
           >
             <div class="text-3xl mb-4">🗜️</div>
@@ -808,8 +811,7 @@
       };
 
       window.onload = () => {
-        const params = new URLSearchParams(window.location.search);
-        const activeKey = params.get("tool") || "jpg-to-png";
+        const activeTool = "{{ tool_id }}";
         const config = toolConfig[activeKey] || toolConfig["jpg-to-png"];
 
         document.getElementById("toolTitle").innerHTML =
