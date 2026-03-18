@@ -29,81 +29,6 @@ templates = Jinja2Templates(directory="templates")
 UPLOAD_DIR = "uploads"
 OUTPUT_DIR = "output"
 
-# ------------------ PAGES ------------------
-@app.get("/", response_class=HTMLResponse)
-async def home(request: Request):
-    return templates.TemplateResponse("Home.html", {"request": request})
-
-@app.get("/pdf_Convertion", response_class=HTMLResponse)
-async def pdf_convert(request: Request):
-    return templates.TemplateResponse("PDF_Convert.html", {"request": request})
-
-@app.get("/Image_Convertion", response_class=HTMLResponse)
-async def image_page(request: Request):
-    return templates.TemplateResponse("Image_Convert.html", {"request": request})
-
-# @app.get("/about", response_class=HTMLResponse)
-# async def about_page(request: Request):
-#     return templates.TemplateResponse("About.html", {"request": request})
-
-@app.get("/resize-image", response_class=HTMLResponse)
-async def resize_page(request: Request):
-    return templates.TemplateResponse("resize-editor.html", {"request": request})
-
-@app.get("/rotate-image", response_class=HTMLResponse)
-async def rotate_page(request: Request):
-    return templates.TemplateResponse("rotate-editor.html", {"request": request})
-
-# Function to delay deletion
-async def delete_file_delayed(path: str, delay_seconds: int = 300):
-    """Wait before deleting to allow download managers to grab all file chunks"""
-    await asyncio.sleep(delay_seconds)
-    try:
-        if os.path.exists(path):
-            os.remove(path)
-    except Exception:
-        pass
-
-@app.get("/about", response_class=HTMLResponse)
-async def api_page(request: Request):
-    return templates.TemplateResponse("api.html", {"request": request})
-
-@app.get("/privacy", response_class=HTMLResponse)
-async def privacy_page(request: Request):
-    return templates.TemplateResponse("privacy.html", {"request": request})
-
-@app.get("/terms", response_class=HTMLResponse)
-async def terms_page(request: Request):
-    return templates.TemplateResponse("terms.html", {"request": request})
-
-@app.get("/help", response_class=HTMLResponse)
-async def help_page(request: Request):
-    return templates.TemplateResponse("help.html", {"request": request})
-
-@app.get("/contact", response_class=HTMLResponse)
-async def contact_page(request: Request):
-    return templates.TemplateResponse("contact.html", {"request": request})
-
-@app.get("/api-docs", response_class=HTMLResponse)
-async def api_page(request: Request):
-    return templates.TemplateResponse("api.html", {"request": request})
-
-@app.get("/llms.txt", response_class=FileResponse)
-async def get_llms_txt():
-    """Serve the llms.txt file for AI crawlers"""
-    return FileResponse("llms.txt", media_type="text/plain")
-
-@app.get("/robots.txt", response_class=FileResponse)
-async def get_robots_txt():
-    """Serve the robots.txt file for Search Engines (Google/Bing)"""
-    return FileResponse("robots.txt", media_type="text/plain")
-
-@app.get("/sitemap.xml", response_class=FileResponse)
-async def get_sitemap_xml():
-    """Serve the sitemap.xml for Search Engine Indexing"""
-    return FileResponse("sitemap.xml", media_type="application/xml")
-
-
 # --- SEO METADATA DICTIONARIES ---
 PDF_SEO = {
     "merge-pdf": {"title": "Merge PDF Files Online for Free", "desc": "Combine multiple PDFs into one document securely. 100% free merge tool."},
@@ -143,13 +68,69 @@ IMAGE_SEO = {
     "extract-text": {"title": "Extract Text from Image (OCR)", "desc": "Read and copy text from screenshots and photos automatically."},
 }
 
-# --- DYNAMIC SEO ROUTES ---
+# ------------------ PAGES ------------------
+@app.get("/", response_class=HTMLResponse)
+async def home(request: Request):
+    return templates.TemplateResponse("Home.html", {"request": request})
 
+@app.get("/about", response_class=HTMLResponse)
+async def about_page(request: Request):
+    return templates.TemplateResponse("about.html", {"request": request})
+
+@app.get("/privacy", response_class=HTMLResponse)
+async def privacy_page(request: Request):
+    return templates.TemplateResponse("privacy.html", {"request": request})
+
+@app.get("/terms", response_class=HTMLResponse)
+async def terms_page(request: Request):
+    return templates.TemplateResponse("terms.html", {"request": request})
+
+@app.get("/contact", response_class=HTMLResponse)
+async def contact_page(request: Request):
+    return templates.TemplateResponse("contact.html", {"request": request})
+
+@app.get("/help", response_class=HTMLResponse)
+async def help_page(request: Request):
+    return templates.TemplateResponse("help.html", {"request": request})
+
+@app.get("/api-docs", response_class=HTMLResponse)
+async def api_page(request: Request):
+    return templates.TemplateResponse("api.html", {"request": request})
+
+# Function to delay deletion
+async def delete_file_delayed(path: str, delay_seconds: int = 300):
+    """Wait before deleting to allow download managers to grab all file chunks"""
+    await asyncio.sleep(delay_seconds)
+    try:
+        if os.path.exists(path):
+            os.remove(path)
+    except Exception:
+        pass
+
+# --- BASE ROUTES (Defaults if no tool is selected) ---
+@app.get("/pdf_Convertion", response_class=HTMLResponse)
+async def pdf_convert_base(request: Request):
+    return templates.TemplateResponse("PDF_Convert.html", {
+        "request": request, 
+        "tool_id": "pdf-to-word",
+        "seo_title": "PDF Tools",
+        "seo_desc": "Convert, edit, and compress PDF files easily."
+    })
+
+@app.get("/Image_Convertion", response_class=HTMLResponse)
+async def image_convert_base(request: Request):
+    return templates.TemplateResponse("Image_Convert.html", {
+        "request": request, 
+        "tool_id": "jpg-to-png",
+        "seo_title": "Image Tools",
+        "seo_desc": "Convert, resize, and edit images using AI."
+    })
+
+# --- DYNAMIC SEO ROUTES (Clean URLs for each tool) ---
 # 1. PDF Tools Route
 @app.get("/pdf/{tool_id}", response_class=HTMLResponse)
 async def pdf_tool_page(request: Request, tool_id: str):
-    # Fallback to default if tool doesn't exist
-    seo_data = PDF_SEO.get(tool_id, {"title": "PDF Tools - FormatConverter", "desc": "Professional PDF editing tools."})
+    seo_data = PDF_SEO.get(tool_id, {"title": "PDF Tools", "desc": "Professional PDF editing tools."})
     return templates.TemplateResponse("PDF_Convert.html", {
         "request": request, 
         "tool_id": tool_id, 
@@ -160,7 +141,7 @@ async def pdf_tool_page(request: Request, tool_id: str):
 # 2. Image Tools Route
 @app.get("/image/{tool_id}", response_class=HTMLResponse)
 async def image_tool_page(request: Request, tool_id: str):
-    seo_data = IMAGE_SEO.get(tool_id, {"title": "Image Tools - FormatConverter", "desc": "Professional image editing tools."})
+    seo_data = IMAGE_SEO.get(tool_id, {"title": "Image Tools", "desc": "Professional image editing tools."})
     return templates.TemplateResponse("Image_Convert.html", {
         "request": request, 
         "tool_id": tool_id, 
@@ -168,8 +149,18 @@ async def image_tool_page(request: Request, tool_id: str):
         "seo_desc": seo_data["desc"]
     })
 
-# (Keep your /about, /privacy, etc. routes here as well!)
+# --- SYSTEM FILES ---
+@app.get("/llms.txt", response_class=FileResponse)
+async def get_llms_txt():
+    return FileResponse("llms.txt", media_type="text/plain")
 
+@app.get("/robots.txt", response_class=FileResponse)
+async def get_robots_txt():
+    return FileResponse("robots.txt", media_type="text/plain")
+
+@app.get("/sitemap.xml", response_class=FileResponse)
+async def get_sitemap_xml():
+    return FileResponse("sitemap.xml", media_type="application/xml")
 
 
 # ------------------ PDF CONVERSION FUNCTIONS ------------------
