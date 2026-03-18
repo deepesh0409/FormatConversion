@@ -15,7 +15,7 @@
   <body
     class="bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen flex flex-col">
     <!-- BULLETPROOF NAVBAR -->
-    <header class="sticky top-0 z-[100] w-full bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+    <header class="sticky top-0 z-100 w-full bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <div class="flex justify-between items-center h-16">
           <!-- Logo -->
@@ -443,14 +443,64 @@
       </section>
     </main>
 
-    <footer
-      class="border-t border-slate-700 py-8 md:py-10 text-center text-slate-400 mt-auto"
-    >
-      <p class="mb-2 text-sm md:text-base">
-        © 2026 FormatConverter. All rights reserved.
-      </p>
-      <p class="text-xs md:text-sm">Made with ❤️ in INDIA.</p>
-    </footer>
+    <!-- Modern Mega Footer -->
+  <footer class="border-t border-slate-800 bg-slate-900/50 pt-16 pb-8 mt-auto text-left">
+    <div class="max-w-7xl mx-auto px-6">
+      
+      <!-- We use lg:grid-cols-5 to give the logo/text more room, just like your reference image -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-16">
+        
+        <!-- Brand Column (Takes up 2 columns of space on desktop) -->
+        <div class="sm:col-span-2 lg:col-span-2">
+          <a href="/" class="text-2xl font-extrabold tracking-wide text-white hover:text-indigo-400 transition-colors">
+            Format<span class="text-indigo-500">Converter</span>
+          </a>
+          <p class="mt-4 text-sm text-slate-400 leading-relaxed pr-4 lg:pr-12">
+            Revolutionizing the way you handle documents with high-speed, secure, and AI-powered conversion tools.
+          </p>
+        </div>
+
+        <!-- Product Column -->
+        <div class="col-span-1">
+          <h3 class="text-white font-semibold mb-6">Product</h3>
+          <ul class="space-y-4">
+            <li><a href="/pdf_Convertion" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">PDF Converter</a></li>
+            <li><a href="/Image_Convertion" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Image Converter</a></li>
+            <li><a href="#" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">AI Summary</a></li>
+          </ul>
+        </div>
+
+        <!-- Company Column -->
+        <div class="col-span-1">
+          <h3 class="text-white font-semibold mb-6">Company</h3>
+          <ul class="space-y-4">
+            <li><a href="/about" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">About Us</a></li>
+            <li><a href="#" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Privacy Policy</a></li>
+            <li><a href="#" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Terms of Service</a></li>
+          </ul>
+        </div>
+
+        <!-- Support Column -->
+        <div class="col-span-1">
+          <h3 class="text-white font-semibold mb-6">Support</h3>
+          <ul class="space-y-4">
+            <li><a href="#" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Help Center</a></li>
+            <li><a href="#" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Contact Us</a></li>
+            <li><a href="#" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">API Documentation</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <!-- Bottom Copyright Row -->
+      <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-center items-center text-sm text-slate-500">
+        <p>
+          © 2026 FormatConverter. Intelligent Document Tools. Made with <span class="text-red-500 text-base mx-1">❤️</span> in INDIA.
+        </p>
+      </div>
+      
+    </div>
+  </footer>
 
     <!-- ================= MODALS ================= -->
 
@@ -1102,6 +1152,12 @@
       document.getElementById("btnCropLand").onclick = () => applyCrop(16, 9);
       document.getElementById("btnCropPort").onclick = () => applyCrop(9, 16);
     </script>
+
+    <!-- Footer style -->
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+
     <script src="/Static/base.js"></script>
   </body>
 </html>

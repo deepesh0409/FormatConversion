@@ -1,0 +1,32 @@
+# FormatConverter
+
+> Intelligent Document and Image Conversion Tools powered by AI.
+
+FormatConverter is a privacy-first web application that allows users to process, convert, and edit PDFs and Images instantly in their browser. All files are processed in isolated secure memory buffers and are automatically deleted from our servers within 15 minutes.
+
+## Core Services
+
+### PDF Tools
+- Merge PDF: Combine multiple PDFs into a single document.
+- Split PDF: Extract pages or split PDFs into separate files.
+- Compress PDF: Reduce PDF file size without losing quality.
+- PDF to Word / Excel / PPT: Convert PDFs into fully editable Office documents.
+- Word / Excel / PPT to PDF: Convert Office documents into perfect PDFs.
+- PDF to Image & Image to PDF: High-quality rendering and combination.
+- Extract Images: Pull embedded pictures directly out of a PDF.
+- Add Watermark & Protect PDF: Stamp text and encrypt documents with AES-256.
+
+### Image Tools
+- Compress Image: Reduce file size to exact KB targets (e.g., Under 50KB).
+- Format Conversion: JPG, PNG, WEBP, and iPhone HEIC support.
+- Resize, Rotate, & Crop: Built-in visual canvas editors.
+- AI Background Removal: Neural-network edge detection to erase backgrounds.
+- AI Image Upscaler: Increase resolution and clarity.
+- Blur Face: OpenCV-powered automatic face detection for privacy.
+- AI Watermark Remover: AI inpainting to clean unwanted marks.
+
+## Privacy & Security
+Zero-Trust model: No backups are kept, no AI models are trained on user data, and all files are purged completely after processing.
+
+## Contact
+- Support: supportformaconversion@gmail.com

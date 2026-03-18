@@ -29,6 +29,30 @@ templates = Jinja2Templates(directory="templates")
 UPLOAD_DIR = "uploads"
 OUTPUT_DIR = "output"
 
+routes = [
+    "/",
+    "/image-to-pdf",
+    "/pdf-to-word",
+]
+
+@app.get("/sitemap.xml")
+def sitemap():
+    xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
+    xml += '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+
+    for route in routes:
+        xml += f"""
+        <url>
+            <loc>{BASE_URL}{route}</loc>
+            <lastmod>{datetime.now().date()}</lastmod>
+            <changefreq>weekly</changefreq>
+            <priority>0.8</priority>
+        </url>
+        """
+
+    xml += '</urlset>'
+    return Response(content=xml, media_type="application/xml")
+
 # ------------------ PAGES ------------------
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
@@ -63,6 +87,36 @@ async def delete_file_delayed(path: str, delay_seconds: int = 300):
             os.remove(path)
     except Exception:
         pass
+
+@app.get("/privacy", response_class=HTMLResponse)
+async def privacy_page(request: Request):
+    return templates.TemplateResponse("privacy.html", {"request": request})
+
+@app.get("/terms", response_class=HTMLResponse)
+async def terms_page(request: Request):
+    return templates.TemplateResponse("terms.html", {"request": request})
+
+@app.get("/help", response_class=HTMLResponse)
+async def help_page(request: Request):
+    return templates.TemplateResponse("help.html", {"request": request})
+
+@app.get("/contact", response_class=HTMLResponse)
+async def contact_page(request: Request):
+    return templates.TemplateResponse("contact.html", {"request": request})
+
+@app.get("/api-docs", response_class=HTMLResponse)
+async def api_page(request: Request):
+    return templates.TemplateResponse("api.html", {"request": request})
+
+@app.get("/llms.txt", response_class=FileResponse)
+async def get_llms_txt():
+    """Serve the llms.txt file for AI crawlers"""
+    return FileResponse("llms.txt", media_type="text/plain")
+
+@app.get("/robots.txt", response_class=FileResponse)
+async def get_robots_txt():
+    """Serve the robots.txt file for Search Engines (Google/Bing)"""
+    return FileResponse("robots.txt", media_type="text/plain")
 
 # ------------------ PDF CONVERSION FUNCTIONS ------------------
 def pdf_to_word_converter(input_path: str) -> str:

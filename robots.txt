@@ -1,0 +1,14 @@
+# Robots.txt for FormatConverter
+# This tells Google to scan all our main pages, but ignore our backend API
+
+User-agent: *
+Allow: /
+
+# Block bots from crawling our private backend endpoints
+Disallow: /api/
+Disallow: /image-process
+Disallow: /uploads/
+Disallow: /output/
+Disallow: /Static/
+
+Sitemap: https://formatconvertion-production.up.railway.app/sitemap.xml

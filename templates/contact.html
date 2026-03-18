@@ -4,9 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>About Us – FormatConverter</title>
-  
-  <!-- Emoji Favicon -->
+  <title>Contact Us – FormatConverter</title>
   <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>">
   <link href="/Static/output.css" rel="stylesheet">
 </head>
@@ -18,7 +16,6 @@
     <div class="mx-auto max-w-7xl px-4 sm:px-6">
       <div class="flex h-16 items-center justify-between">
         
-        <!-- Left Side: Logo & Icon -->
         <div class="flex items-center gap-2 shrink-0">
           <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500">
             <path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"></path>
@@ -26,28 +23,24 @@
             <path d="M3 15h6"></path>
             <path d="M6 12v6"></path>
           </svg>
-          <a href="/" class="text-2xl font-extrabold tracking-wide hover:text-indigo-400 transition-colors">
+          <a href="/" class="text-2xl font-extrabold tracking-wide text-white hover:text-indigo-400 transition-colors">
             Format<span class="text-indigo-500">Converter</span>
           </a>
         </div>
 
-        <!-- Right Side: Desktop Menu & Buttons -->
         <div class="hidden md:flex items-center space-x-8">
           <div class="flex space-x-6">
             <a href="/pdf_Convertion" class="text-slate-300 hover:text-white transition text-sm font-medium">PDF Tools</a>
             <a href="/Image_Convertion" class="text-slate-300 hover:text-white transition text-sm font-medium">Image Tools</a>
             <a href="/about" class="text-slate-300 hover:text-white transition text-sm font-medium">About</a>
           </div>
-          
           <div class="h-6 w-px bg-slate-700"></div>
-
           <div class="flex items-center space-x-4">
             <button class="text-sm font-medium text-slate-300 hover:text-white transition">Sign In</button>
             <button class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/20 transition text-sm font-semibold text-white">Get Started Free</button>
           </div>
         </div>
 
-        <!-- Mobile Hamburger Button -->
         <div class="flex md:hidden">
           <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none transition">
             <svg id="menu-icon-open" class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,46 +69,73 @@
     </div>
   </nav>
 
+  <!-- Main Content -->
   <main class="grow">
     <!-- Page Header -->
     <section class="max-w-4xl mx-auto px-4 sm:px-6 pt-16 sm:pt-24 pb-8 sm:pb-12 text-center">
-      <h1 class="text-4xl sm:text-5xl font-extrabold mb-6 text-white">About <span class="text-indigo-400">FormatConverter</span></h1>
+      <h1 class="text-4xl sm:text-5xl font-extrabold mb-6 text-white">Contact <span class="text-indigo-400">Us</span></h1>
       <p class="text-slate-400 text-base sm:text-lg leading-relaxed">
-        Learn more about the team, mission, and technology powering our platform.
+        Have a question, found a bug, or want to suggest a new tool? We'd love to hear from you!
       </p>
     </section>
 
     <!-- Content Container -->
-    <section class="max-w-3xl mx-auto px-4 sm:px-6 pb-24">
-      <div class="bg-slate-800/50 border border-slate-700 rounded-3xl p-6 sm:p-12 space-y-10 text-slate-300 leading-relaxed shadow-xl">
-        
-        <div>
-          <h3 class="text-2xl font-bold text-white mb-4">Our Mission</h3>
-          <p>FormatConverter was built in 2026 with a single, clear mission: to make digital file management completely frictionless. We believe that editing a PDF, resizing an image, or removing a background shouldn't require expensive software subscriptions, forced sign-ups, or invasive data tracking.</p>
+    <section class="max-w-4xl mx-auto px-4 sm:px-6 pb-24 grid md:grid-cols-2 gap-8">
+      
+      <!-- Contact Info -->
+      <div class="bg-slate-800/50 border border-slate-700 rounded-3xl p-8 shadow-xl flex flex-col justify-center">
+        <h3 class="text-2xl font-bold text-white mb-6">Get in Touch</h3>
+        <div class="space-y-6">
+          <div class="flex items-start gap-4">
+            <div class="bg-indigo-500/10 p-3 rounded-xl text-indigo-400">📧</div>
+            <div>
+              <p class="text-sm text-slate-400">Support & General</p>
+              <p class="text-lg font-semibold text-white">supportformatconversion@gmail.com</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-4">
+            <div class="bg-indigo-500/10 p-3 rounded-xl text-indigo-400">💼</div>
+            <div>
+              <p class="text-sm text-slate-400">Business & API Access</p>
+              <p class="text-lg font-semibold text-white">business@formatconverter.com</p>
+            </div>
+          </div>
         </div>
-
-        <div>
-          <h3 class="text-2xl font-bold text-white mb-4">Built for Speed and Privacy</h3>
-          <p>Based in India, our team of developers combined the raw speed of Python's FastAPI with the intelligence of modern AI neural networks. The result is a platform that delivers studio-quality conversions directly in your browser.</p>
+        <div class="mt-8 pt-8 border-t border-slate-700">
+          <p class="text-sm text-slate-400 leading-relaxed">
+            <strong class="text-white">Response Time:</strong> We aim to respond to all inquiries within 24-48 hours. Please note that because we do not save your files, we cannot help you recover a lost document.
+          </p>
         </div>
-
-        <div>
-          <h3 class="text-2xl font-bold text-white mb-4">Your Data is Yours</h3>
-          <p>We built FormatConverter on a "Zero-Trust" privacy model. Your files are processed in isolated memory buffers and are automatically, permanently wiped from our servers immediately after your download completes. We don't read them, we don't store them, and we don't train AI on them.</p>
-        </div>
-
       </div>
+
+      <!-- Sleek UI Form -->
+      <div class="bg-slate-800 border border-slate-700 rounded-3xl p-8 shadow-xl">
+        <form class="space-y-5" onsubmit="event.preventDefault(); alert('Message sent successfully!');">
+          <div>
+            <label class="block text-sm font-medium text-slate-400 mb-2">Name</label>
+            <input type="text" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-indigo-500 outline-none transition" placeholder="John Doe">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-400 mb-2">Email Address</label>
+            <input type="email" required class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-indigo-500 outline-none transition" placeholder="john@example.com">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-slate-400 mb-2">Message</label>
+            <textarea required rows="4" class="w-full bg-slate-900 border border-slate-700 rounded-xl px-4 py-3 text-white focus:border-indigo-500 outline-none transition" placeholder="How can we help you?"></textarea>
+          </div>
+          <button type="submit" class="w-full mt-2 px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 transition font-bold text-lg shadow-lg shadow-indigo-500/30">
+            Send Message
+          </button>
+        </form>
+      </div>
+
     </section>
   </main>
 
   <!-- Modern Mega Footer -->
   <footer class="border-t border-slate-800 bg-slate-900/50 pt-16 pb-8 mt-auto text-left">
     <div class="max-w-7xl mx-auto px-6">
-      
-      <!-- We use lg:grid-cols-5 to give the logo/text more room -->
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-16">
-        
-        <!-- Brand Column -->
         <div class="sm:col-span-2 lg:col-span-2">
           <a href="/" class="text-2xl font-extrabold tracking-wide text-white hover:text-indigo-400 transition-colors">
             Format<span class="text-indigo-500">Converter</span>
@@ -124,8 +144,6 @@
             Revolutionizing the way you handle documents with high-speed, secure, and AI-powered conversion tools.
           </p>
         </div>
-
-        <!-- Product Column -->
         <div class="col-span-1">
           <h3 class="text-white font-semibold mb-6">Product</h3>
           <ul class="space-y-4">
@@ -134,8 +152,6 @@
             <li><a href="#" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">AI Summary</a></li>
           </ul>
         </div>
-
-        <!-- Company Column -->
         <div class="col-span-1">
           <h3 class="text-white font-semibold mb-6">Company</h3>
           <ul class="space-y-4">
@@ -144,8 +160,6 @@
             <li><a href="/terms" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Terms of Service</a></li>
           </ul>
         </div>
-
-        <!-- Support Column -->
         <div class="col-span-1">
           <h3 class="text-white font-semibold mb-6">Support</h3>
           <ul class="space-y-4">
@@ -154,23 +168,17 @@
             <li><a href="#" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">API Documentation</a></li>
           </ul>
         </div>
-
       </div>
-
-      <!-- Bottom Copyright Row -->
       <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-center items-center text-sm text-slate-500">
         <p>
           © <span id="year">2026</span> FormatConverter. Intelligent Document Tools. Made with <span class="text-red-500 text-base mx-1">❤️</span> in INDIA.
         </p>
       </div>
-      
     </div>
   </footer>
 
   <!-- Scripts -->
-  <script>
-    document.getElementById("year").textContent = new Date().getFullYear();
-  </script>
+  <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
   <script src="/Static/base.js"></script>
 
 </body>
