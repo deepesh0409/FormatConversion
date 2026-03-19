@@ -48,6 +48,8 @@ PDF_SEO = {
     "unlock-pdf": {"title": "Unlock PDF Password", "desc": "Remove passwords and security encryption from PDF files."},
     "remove-pages": {"title": "Remove Pages from PDF", "desc": "Delete unwanted pages from your PDF document."},
     "reorder-pages": {"title": "Reorder PDF Pages", "desc": "Rearrange and sort the pages in your PDF document."},
+    "translate-pdf-en-hi": {"title": "Translate PDF English to Hindi", "desc": "Instantly translate your English PDF documents into Hindi."},
+    "text-to-pdf": {"title": "Convert Text to PDF", "desc": "Convert plain text TXT files into perfectly formatted PDF documents."},
 }
 
 IMAGE_SEO = {
@@ -387,7 +389,7 @@ def ppt_to_pdf_converter(input_path: str) -> str:
     powerpoint.Quit()
     return output_path
 
-# --- IMAGE TO PDF (NEW!) ---
+# --- IMAGE TO PDF  ---
 def images_to_pdf_converter(input_paths: list) -> str:
     output_path = os.path.join(OUTPUT_DIR, f"converted_{uuid.uuid4()}.pdf")
     images =[]
@@ -417,6 +419,7 @@ def images_to_pdf_converter(input_paths: list) -> str:
     )
     return output_path
 
+# --- PAGE NUMBERING ---
 def add_page_numbers_converter(input_path: str, starting_number: str) -> str:
     output_path = os.path.join(OUTPUT_DIR, f"numbered_{uuid.uuid4()}.pdf")
     doc = fitz.open(input_path)
@@ -436,6 +439,7 @@ def add_page_numbers_converter(input_path: str, starting_number: str) -> str:
     doc.close()
     return output_path
 
+# --- EXTRACT IMAGES ---
 def extract_images_converter(input_path: str) -> str:
     """Extract all embedded images from a PDF into a ZIP folder"""
     unique_id = str(uuid.uuid4())
@@ -476,6 +480,7 @@ def extract_images_converter(input_path: str) -> str:
     finally:
         shutil.rmtree(job_folder, ignore_errors=True)
 
+# --- REORDER PAGES ---
 def reorder_pages_converter(input_path: str, page_order: str) -> str:
     """Reorder pages based on user input (e.g. '3, 1, 2')"""
     output_path = os.path.join(OUTPUT_DIR, f"reordered_{uuid.uuid4()}.pdf")
@@ -501,6 +506,53 @@ def reorder_pages_converter(input_path: str, page_order: str) -> str:
     doc.close()
     return output_path
 
+# --- TRANSLATE PDF (EN to HI) ---
+def translate_pdf_hi_converter(input_path: str) -> str:
+    from deep_translator import GoogleTranslator
+    output_path = os.path.join(OUTPUT_DIR, f"translated_{uuid.uuid4()}.txt")
+    
+    # 1. Extract text from PDF
+    doc = fitz.open(input_path)
+    full_text = ""
+    for page in doc:
+        full_text += page.get_text() + "\n"
+    doc.close()
+    
+    if not full_text.strip():
+        raise Exception("No readable text found in this PDF.")
+        
+    # 2. Translate in chunks (Google has a 5000 character limit per request)
+    translator = GoogleTranslator(source='en', target='hi')
+    chunks = [full_text[i:i+4000] for i in range(0, len(full_text), 4000)]
+    
+    translated_text = ""
+    for chunk in chunks:
+        translated_text += translator.translate(chunk) + "\n\n"
+        
+    # 3. Save as a UTF-8 text file (so Hindi characters show up perfectly)
+    with open(output_path, "w", encoding="utf-8") as f:
+        f.write(translated_text)
+        
+    return output_path
+
+# --- TEXT TO PDF ---
+def text_to_pdf_converter(input_path: str) -> str:
+    from fpdf import FPDF
+    output_path = os.path.join(OUTPUT_DIR, f"converted_{uuid.uuid4()}.pdf")
+    
+    pdf = FPDF()
+    pdf.add_page()
+    pdf.set_font("Arial", size=12)
+    
+    # Read the text file and handle encoding to prevent errors
+    with open(input_path, "r", encoding="utf-8", errors="ignore") as f:
+        text = f.read()
+        # FPDF standard fonts use latin-1, so we clean the text safely
+        clean_text = text.encode('latin-1', 'replace').decode('latin-1')
+        pdf.multi_cell(0, 10, txt=clean_text)
+        
+    pdf.output(output_path)
+    return output_path
 
 # ------------------ PDF CONVERSION API ------------------
 @app.post("/api/pdf/convert")
@@ -526,6 +578,10 @@ async def convert_pdf(files: List[UploadFile] = File(...), tool: str = Form(...)
         elif tool == "pdf-to-text":
             output_path = pdf_to_text_converter(input_path)
             filename = "converted.txt"
+
+        elif tool == "text-to-pdf":
+            output_path = text_to_pdf_converter(input_path)
+            filename = "document.pdf"
 
         elif tool == "pdf-to-mp3":
             output_path = pdf_to_mp3_converter(input_path)
@@ -610,6 +666,10 @@ async def convert_pdf(files: List[UploadFile] = File(...), tool: str = Form(...)
                 return JSONResponse(status_code=400, content={"error": "Please provide the new page order."})
             output_path = reorder_pages_converter(input_path, extra_param)
             filename = "reordered.pdf"
+
+        elif tool == "translate-pdf-en-hi":
+            output_path = translate_pdf_hi_converter(input_path)
+            filename = "Translated_Hindi.txt"
 
         else:
             return JSONResponse(status_code=400, content={"error": f"Unsupported tool: {tool}"})

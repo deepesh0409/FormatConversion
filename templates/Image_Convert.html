@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>{{ seo_title }} – FormatConverter</title>
-    <meta name="description" content="{{ seo_desc }}">
+    <meta name="description" content="{{ seo_desc }}" />
 
     <link
       rel="icon"
@@ -16,9 +16,12 @@
 
   <!-- ADDED flex flex-col TO BODY SO NAVBAR STICKS PROPERLY -->
   <body
-    class="bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen flex flex-col">
+    class="bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen flex flex-col"
+  >
     <!-- BULLETPROOF NAVBAR -->
-    <header class="sticky top-0 z-100 w-full bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
+    <header
+      class="sticky top-0 z-100 w-full relative bg-slate-900/95 backdrop-blur-md border-b border-slate-800"
+    >
       <div class="max-w-7xl mx-auto px-4 sm:px-6">
         <div class="flex justify-between items-center h-16">
           <!-- Logo -->
@@ -283,6 +286,19 @@
               Manual free-angle rotation and vertical/horizontal flipping.
             </p>
           </a>
+          <!-- Extract Text (OCR) -->
+          <a
+            href="/image/extract-text"
+            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
+          >
+            <div class="text-3xl mb-4">📝</div>
+            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
+              Extract Text (OCR)
+            </h3>
+            <p class="text-slate-400 text-sm">
+              Extract readable text from screenshots and photos.
+            </p>
+          </a>
           <a
             href="/image/jpg-to-png"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
@@ -447,63 +463,126 @@
     </main>
 
     <!-- Modern Mega Footer -->
-  <footer class="border-t border-slate-800 bg-slate-900/50 pt-16 pb-8 mt-auto text-left">
-    <div class="max-w-7xl mx-auto px-6">
-      
-      <!-- We use lg:grid-cols-5 to give the logo/text more room, just like your reference image -->
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-16">
-        
-        <!-- Brand Column (Takes up 2 columns of space on desktop) -->
-        <div class="sm:col-span-2 lg:col-span-2">
-          <a href="/" class="text-2xl font-extrabold tracking-wide text-white hover:text-indigo-400 transition-colors">
-            Format<span class="text-indigo-500">Converter</span>
-          </a>
-          <p class="mt-4 text-sm text-slate-400 leading-relaxed pr-4 lg:pr-12">
-            Revolutionizing the way you handle documents with high-speed, secure, and AI-powered conversion tools.
+    <footer
+      class="border-t border-slate-800 bg-slate-900/50 pt-16 pb-8 mt-auto text-left"
+    >
+      <div class="max-w-7xl mx-auto px-6">
+        <!-- We use lg:grid-cols-5 to give the logo/text more room, just like your reference image -->
+        <div
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-16"
+        >
+          <!-- Brand Column (Takes up 2 columns of space on desktop) -->
+          <div class="sm:col-span-2 lg:col-span-2">
+            <a
+              href="/"
+              class="text-2xl font-extrabold tracking-wide text-white hover:text-indigo-400 transition-colors"
+            >
+              Format<span class="text-indigo-500">Converter</span>
+            </a>
+            <p
+              class="mt-4 text-sm text-slate-400 leading-relaxed pr-4 lg:pr-12"
+            >
+              Revolutionizing the way you handle documents with high-speed,
+              secure, and AI-powered conversion tools.
+            </p>
+          </div>
+
+          <!-- Product Column -->
+          <div class="col-span-1">
+            <h3 class="text-white font-semibold mb-6">Product</h3>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  href="/pdf_Convertion"
+                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
+                  >PDF Converter</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/Image_Convertion"
+                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
+                  >Image Converter</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
+                  >AI Summary</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Company Column -->
+          <div class="col-span-1">
+            <h3 class="text-white font-semibold mb-6">Company</h3>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  href="/about"
+                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
+                  >About Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/privacy"
+                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
+                  >Privacy Policy</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/terms"
+                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
+                  >Terms of Service</a
+                >
+              </li>
+            </ul>
+          </div>
+
+          <!-- Support Column -->
+          <div class="col-span-1">
+            <h3 class="text-white font-semibold mb-6">Support</h3>
+            <ul class="space-y-4">
+              <li>
+                <a
+                  href="/help"
+                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
+                  >Help Center</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/contact"
+                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
+                  >Contact Us</a
+                >
+              </li>
+              <li>
+                <a
+                  href="/api-docs"
+                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
+                  >API Documentation</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- Bottom Copyright Row -->
+        <div
+          class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-center items-center text-sm text-slate-500"
+        >
+          <p>
+            © 2026 FormatConverter. Intelligent Document Tools. Made with
+            <span class="text-red-500 text-base mx-1">❤️</span> in INDIA.
           </p>
         </div>
-
-        <!-- Product Column -->
-        <div class="col-span-1">
-          <h3 class="text-white font-semibold mb-6">Product</h3>
-          <ul class="space-y-4">
-            <li><a href="/pdf_Convertion" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">PDF Converter</a></li>
-            <li><a href="/Image_Convertion" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Image Converter</a></li>
-            <li><a href="#" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">AI Summary</a></li>
-          </ul>
-        </div>
-
-        <!-- Company Column -->
-        <div class="col-span-1">
-          <h3 class="text-white font-semibold mb-6">Company</h3>
-          <ul class="space-y-4">
-            <li><a href="/about" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">About Us</a></li>
-            <li><a href="/privacy" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Privacy Policy</a></li>
-            <li><a href="/terms" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Terms of Service</a></li>
-          </ul>
-        </div>
-
-        <!-- Support Column -->
-        <div class="col-span-1">
-          <h3 class="text-white font-semibold mb-6">Support</h3>
-          <ul class="space-y-4">
-            <li><a href="/help" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Help Center</a></li>
-            <li><a href="/contact" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Contact Us</a></li>
-            <li><a href="/api-docs" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">API Documentation</a></li>
-          </ul>
-        </div>
-
       </div>
-
-      <!-- Bottom Copyright Row -->
-      <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-center items-center text-sm text-slate-500">
-        <p>
-          © 2026 FormatConverter. Intelligent Document Tools. Made with <span class="text-red-500 text-base mx-1">❤️</span> in INDIA.
-        </p>
-      </div>
-      
-    </div>
-  </footer>
+    </footer>
 
     <!-- ================= MODALS ================= -->
 
@@ -721,119 +800,56 @@
 
     <!-- ================= JAVASCRIPT ================= -->
     <script>
+      // 1. DYNAMIC JINJA2 VARIABLE (Fixes the routing bug!)
+      const activeTool = "{{ tool_id }}";
+
       const toolConfig = {
-        compress: {
-          name: "Compress Image",
-          icon: "📉",
-          desc: "Reduce file size with zero quality loss.",
-          related: ["jpg-to-png", "png-to-jpg", "resize"],
-        },
-        rotate: {
-          name: "Rotate Image",
-          icon: "🔄",
-          desc: "Flip or turn images 90-180 degrees.",
-          related: ["crop", "resize", "compress"],
-        },
-        "jpg-to-png": {
-          name: "JPG to PNG",
-          icon: "🖼️",
-          desc: "Convert your JPG images to PNG format.",
-          related: ["png-to-jpg", "compress", "resize"],
-        },
-        "png-to-jpg": {
-          name: "PNG to JPG",
-          icon: "📸",
-          desc: "Convert PNG images to JPG format.",
-          related: ["compress", "resize", "jpg-to-png"],
-        },
-        resize: {
-          name: "Resize Image",
-          icon: "📐",
-          desc: "Change dimensions by pixel or percentage.",
-          related: ["crop", "compress", "rotate"],
-        },
-        crop: {
-          name: "Crop Image",
-          icon: "✂️",
-          desc: "Trim edges or change aspect ratio.",
-          related: ["resize", "rotate", "compress"],
-        },
-        "bg-remove": {
-          name: "Remove Background",
-          icon: "✂️",
-          desc: "Use AI to automatically remove the background.",
-          related: ["blur-face", "upscale", "compress"],
-        },
-        "blur-face": {
-          name: "Blur Face",
-          icon: "👤",
-          desc: "Automatically detect and blur faces.",
-          related: ["bg-remove", "compress", "jpg-to-png"],
-        },
-        upscale: {
-          name: "AI Upscaler",
-          icon: "🔍",
-          desc: "Enhance resolution and sharpen details.",
-          related: ["bg-remove", "compress", "crop"],
-        },
-        watermark: {
-          name: "Watermark Image",
-          icon: "🖋️",
-          desc: "Add custom text over your image.",
-          related: ["wm-remover", "compress", "resize"],
-          extraInputPrompt: "Enter Watermark Text...",
-        },
-        "wm-remover": {
-          name: "Watermark Remover",
-          icon: "🧼",
-          desc: "AI-assisted inpainting to clean text/marks.",
-          related: ["watermark", "bg-remove", "upscale"],
-        },
-        "compress-exact": {
-          name: "Compress to Target Size",
-          icon: "🗜️",
-          desc: "Enter a maximum file size (in KB). Perfect for govt portals and job applications.",
-          related: ["compress", "resize", "jpg-to-png"],
-          extraInputPrompt: "Max size in KB (e.g., 50)",
-        },
-        "heic-to-jpg": {
-          name: "HEIC to JPG",
-          icon: "📱",
-          desc: "Convert iPhone HEIC photos to standard JPG format.",
-          related: ["png-to-jpg", "compress", "resize"],
-        },
-        "to-webp": {
-          name: "Convert to WebP",
-          icon: "🕸️",
-          desc: "Convert your image to the next-gen WebP format for faster website loading.",
-          related: ["compress", "resize", "jpg-to-png"],
-        },
+        compress: { name: "Compress Image", icon: "📉", desc: "Reduce file size with zero quality loss.", related: ["jpg-to-png", "png-to-jpg", "resize"] },
+        rotate: { name: "Rotate Image", icon: "🔄", desc: "Flip or turn images 90-180 degrees.", related: ["crop", "resize", "compress"] },
+        "jpg-to-png": { name: "JPG to PNG", icon: "🖼️", desc: "Convert your JPG images to PNG format.", related: ["png-to-jpg", "compress", "resize"] },
+        "png-to-jpg": { name: "PNG to JPG", icon: "📸", desc: "Convert PNG images to JPG format.", related: ["compress", "resize", "jpg-to-png"] },
+        resize: { name: "Resize Image", icon: "📐", desc: "Change dimensions by pixel or percentage.", related:["crop", "compress", "rotate"] },
+        crop: { name: "Crop Image", icon: "✂️", desc: "Trim edges or change aspect ratio.", related: ["resize", "rotate", "compress"] },
+        "bg-remove": { name: "Remove Background", icon: "✂️", desc: "Use AI to automatically remove the background.", related: ["blur-face", "upscale", "compress"] },
+        "blur-face": { name: "Blur Face", icon: "👤", desc: "Automatically detect and blur faces.", related: ["bg-remove", "compress", "jpg-to-png"] },
+        upscale: { name: "AI Upscaler", icon: "🔍", desc: "Enhance resolution and sharpen details.", related:["bg-remove", "compress", "crop"] },
+        watermark: { name: "Watermark Image", icon: "🖋️", desc: "Add custom text over your image.", related:["wm-remover", "compress", "resize"], extraInputPrompt: "Enter Watermark Text..." },
+        "wm-remover": { name: "Watermark Remover", icon: "🧼", desc: "AI-assisted inpainting to clean text/marks.", related: ["watermark", "bg-remove", "upscale"] },
+        "compress-exact": { name: "Compress to Target Size", icon: "🗜️", desc: "Enter a maximum file size (in KB). Perfect for govt portals and job applications.", related:["compress", "resize", "jpg-to-png"], extraInputPrompt: "Max size in KB (e.g., 50)" },
+        "heic-to-jpg": { name: "HEIC to JPG", icon: "📱", desc: "Convert iPhone HEIC photos to standard JPG format.", related: ["png-to-jpg", "compress", "resize"] },
+        "to-webp": { name: "Convert to WebP", icon: "🕸️", desc: "Convert your image to the next-gen WebP format for faster website loading.", related:["compress", "resize", "jpg-to-png"] },
+        "extract-text": { name: "Extract Text (OCR)", icon: "📝", desc: "Extract readable text from your image and download it as a text file.", related:["compress", "resize", "jpg-to-png"] }
       };
 
-      window.onload = () => {
-        const activeTool = "{{ tool_id }}";
-        const config = toolConfig[activeKey] || toolConfig["jpg-to-png"];
+      const dropZone = document.getElementById("dropZone");
+      const fileInput = document.getElementById("imageInput");
+      const fileNameDisplay = document.getElementById("fileNameDisplay");
+      const convertBtn = document.getElementById("convertBtn");
+      const extraInputContainer = document.getElementById("extraInputContainer");
+      const extraInput = document.getElementById("extraInput");
 
-        document.getElementById("toolTitle").innerHTML =
-          `${config.name} <span class="text-indigo-500">Workspace</span>`;
+      // Shared memory for frontend tools
+      let currentImage = new Image();
+      let originalRatio = 1;
+      let currentRotation = 0;
+      let scaleX = 1;
+      let scaleY = 1;
+
+      window.onload = () => {
+        const config = toolConfig[activeTool] || toolConfig["jpg-to-png"];
+
+        document.getElementById("toolTitle").innerHTML = `${config.name} <span class="text-indigo-500">Workspace</span>`;
         document.getElementById("toolDesc").innerText = config.desc;
         document.getElementById("toolIcon").innerText = config.icon;
         document.getElementById("toolBadgeName").innerText = config.name;
         document.getElementById("toolBadgeIcon").innerText = config.icon;
 
-        const extraInputContainer = document.getElementById(
-          "extraInputContainer",
-        );
-        const extraInput = document.getElementById("extraInput");
-
-        if (activeKey === "heic-to-jpg") {
+        if (activeTool === "heic-to-jpg") {
           fileInput.setAttribute("accept", ".heic,.heif,image/heic,image/*");
-          document.querySelector("#dropZone p.text-slate-400").innerText =
-            "Supports HEIC and HEIF formats";
+          document.querySelector("#dropZone p.text-slate-400").innerText = "Supports HEIC and HEIF formats";
         } else {
           fileInput.setAttribute("accept", "image/*");
-          document.querySelector("#dropZone p.text-slate-400").innerText =
-            "Supports up to 50MB per file";
+          document.querySelector("#dropZone p.text-slate-400").innerText = "Supports up to 50MB per file";
         }
 
         if (config.extraInputPrompt) {
@@ -849,35 +865,15 @@
           config.related.forEach((key) => {
             const r = toolConfig[key];
             if (r) {
-              grid.innerHTML += `<a href="/Image_Convertion?tool=${key}" class="p-3 sm:p-4 rounded-xl bg-slate-800/40 border border-slate-700 hover:border-indigo-500 transition flex items-center gap-3"><span class="text-xl">${r.icon}</span><span class="text-xs sm:text-sm font-bold uppercase text-slate-300">${r.name}</span></a>`;
+              grid.innerHTML += `<a href="/image/${key}" class="p-3 sm:p-4 rounded-xl bg-slate-800/40 border border-slate-700 hover:border-indigo-500 transition flex items-center gap-3"><span class="text-xl">${r.icon}</span><span class="text-xs sm:text-sm font-bold uppercase text-slate-300">${r.name}</span></a>`;
             }
           });
         }
       };
 
-      const dropZone = document.getElementById("dropZone");
-      const fileInput = document.getElementById("imageInput");
-      const fileNameDisplay = document.getElementById("fileNameDisplay");
-      const convertBtn = document.getElementById("convertBtn");
-      const extraInputContainer = document.getElementById(
-        "extraInputContainer",
-      );
-      const extraInput = document.getElementById("extraInput");
-
-      let currentImage = new Image();
-      let originalRatio = 1;
-      let currentRotation = 0;
-      let scaleX = 1;
-      let scaleY = 1;
-
       dropZone.onclick = () => fileInput.click();
-      dropZone.addEventListener("dragover", (e) => {
-        e.preventDefault();
-        dropZone.classList.add("border-indigo-500", "bg-slate-700/40");
-      });
-      dropZone.addEventListener("dragleave", () => {
-        dropZone.classList.remove("border-indigo-500", "bg-slate-700/40");
-      });
+      dropZone.addEventListener("dragover", (e) => { e.preventDefault(); dropZone.classList.add("border-indigo-500", "bg-slate-700/40"); });
+      dropZone.addEventListener("dragleave", () => { dropZone.classList.remove("border-indigo-500", "bg-slate-700/40"); });
       dropZone.addEventListener("drop", (e) => {
         e.preventDefault();
         dropZone.classList.remove("border-indigo-500", "bg-slate-700/40");
@@ -897,22 +893,20 @@
 
       convertBtn.onclick = async () => {
         const file = fileInput.files[0];
-        const params = new URLSearchParams(window.location.search);
-        const tool = params.get("tool") || "jpg-to-png";
+        const tool = activeTool; // Use the global activeTool variable!
 
         if (!file) {
           alert("Please upload an image first!");
           return;
         }
-        if (
-          !extraInputContainer.classList.contains("hidden") &&
-          extraInput.value.trim() === ""
-        ) {
+
+        if (!extraInputContainer.classList.contains("hidden") && extraInput.value.trim() === "") {
           alert(extraInput.placeholder);
           extraInput.focus();
           return;
         }
 
+        // 1. Check if tool is Frontend Canvas Tool (Resize, Rotate, Crop)
         if (tool === "resize" || tool === "rotate" || tool === "crop") {
           const reader = new FileReader();
           reader.onload = (event) => {
@@ -920,16 +914,14 @@
             currentImage.onload = () => {
               if (tool === "resize") openResizeModal();
               if (tool === "rotate") openRotateModal();
-              if (tool === "crop")
-                document
-                  .getElementById("cropModal")
-                  .classList.replace("hidden", "flex");
+              if (tool === "crop") document.getElementById("cropModal").classList.replace("hidden", "flex");
             };
           };
           reader.readAsDataURL(file);
           return;
         }
 
+        // 2. Send to Backend Processing
         const overlay = document.getElementById("processingOverlay");
         overlay.classList.replace("hidden", "flex");
         convertBtn.disabled = true;
@@ -953,15 +945,11 @@
           const url = URL.createObjectURL(blob);
           const baseName = file.name.substring(0, file.name.lastIndexOf("."));
 
+          // Set correct extension
           let newExt = "png";
-          if (
-            tool === "png-to-jpg" ||
-            tool === "compress" ||
-            tool === "compress-exact" ||
-            tool === "heic-to-jpg"
-          )
-            newExt = "jpg";
+          if (tool === "png-to-jpg" || tool === "compress" || tool === "compress-exact" || tool === "heic-to-jpg") newExt = "jpg";
           if (tool === "to-webp") newExt = "webp";
+          if (tool === "extract-text") newExt = "txt";
 
           triggerDownload(url, `converted_${baseName}.${newExt}`);
         } catch (err) {
@@ -980,9 +968,7 @@
         a.click();
         a.remove();
         convertBtn.innerText = "Success! Downloaded ✓";
-        setTimeout(() => {
-          convertBtn.innerText = "Process Image";
-        }, 2500);
+        setTimeout(() => { convertBtn.innerText = "Process Image"; }, 2500);
       }
 
       // MODAL FUNCTIONS
@@ -997,28 +983,19 @@
         heightIn.value = currentImage.height;
         resizeModal.classList.replace("hidden", "flex");
       }
-      widthIn.oninput = () => {
-        if (aspectCheck.checked)
-          heightIn.value = Math.round(widthIn.value / originalRatio);
-      };
-      heightIn.oninput = () => {
-        if (aspectCheck.checked)
-          widthIn.value = Math.round(heightIn.value * originalRatio);
-      };
+      
+      widthIn.oninput = () => { if (aspectCheck.checked) heightIn.value = Math.round(widthIn.value / originalRatio); };
+      heightIn.oninput = () => { if (aspectCheck.checked) widthIn.value = Math.round(heightIn.value * originalRatio); };
       const closeResize = () => resizeModal.classList.replace("flex", "hidden");
       document.getElementById("closeResize").onclick = closeResize;
       document.getElementById("btnCancelResize").onclick = closeResize;
+      
       document.getElementById("btnApplyResize").onclick = () => {
         const canvas = document.createElement("canvas");
         canvas.width = parseInt(widthIn.value);
         canvas.height = parseInt(heightIn.value);
-        canvas
-          .getContext("2d")
-          .drawImage(currentImage, 0, 0, canvas.width, canvas.height);
-        triggerDownload(
-          canvas.toDataURL("image/png"),
-          `resized_${fileInput.files[0].name}.png`,
-        );
+        canvas.getContext("2d").drawImage(currentImage, 0, 0, canvas.width, canvas.height);
+        triggerDownload(canvas.toDataURL("image/png"), `resized_${fileInput.files[0].name}.png`);
         closeResize();
       };
 
@@ -1029,60 +1006,29 @@
       const angleVal = document.getElementById("angleValue");
 
       function openRotateModal() {
-        const ratio = Math.min(
-          300 / currentImage.width,
-          300 / currentImage.height,
-        );
+        const ratio = Math.min(300 / currentImage.width, 300 / currentImage.height);
         rotCanvas.width = currentImage.width * ratio;
         rotCanvas.height = currentImage.height * ratio;
-        currentRotation = 0;
-        scaleX = 1;
-        scaleY = 1;
-        rotSlider.value = 0;
-        angleVal.innerText = "0";
+        currentRotation = 0; scaleX = 1; scaleY = 1; rotSlider.value = 0; angleVal.innerText = "0";
         drawRotatePreview();
         rotateModal.classList.replace("hidden", "flex");
       }
+      
       function drawRotatePreview() {
         rotCtx.clearRect(0, 0, rotCanvas.width, rotCanvas.height);
         rotCtx.save();
         rotCtx.translate(rotCanvas.width / 2, rotCanvas.height / 2);
         rotCtx.rotate((currentRotation * Math.PI) / 180);
         rotCtx.scale(scaleX, scaleY);
-        rotCtx.drawImage(
-          currentImage,
-          -rotCanvas.width / 2,
-          -rotCanvas.height / 2,
-          rotCanvas.width,
-          rotCanvas.height,
-        );
+        rotCtx.drawImage(currentImage, -rotCanvas.width / 2, -rotCanvas.height / 2, rotCanvas.width, rotCanvas.height);
         rotCtx.restore();
       }
-      rotSlider.oninput = (e) => {
-        currentRotation = parseInt(e.target.value);
-        angleVal.innerText = currentRotation;
-        drawRotatePreview();
-      };
-      document.getElementById("btnRot90").onclick = () => {
-        currentRotation = (currentRotation + 90) % 360;
-        rotSlider.value = currentRotation;
-        angleVal.innerText = currentRotation;
-        drawRotatePreview();
-      };
-      document.getElementById("btnRotMin90").onclick = () => {
-        currentRotation = (currentRotation - 90) % 360;
-        rotSlider.value = currentRotation;
-        angleVal.innerText = currentRotation;
-        drawRotatePreview();
-      };
-      document.getElementById("btnFlipH").onclick = () => {
-        scaleX *= -1;
-        drawRotatePreview();
-      };
-      document.getElementById("btnFlipV").onclick = () => {
-        scaleY *= -1;
-        drawRotatePreview();
-      };
+      
+      rotSlider.oninput = (e) => { currentRotation = parseInt(e.target.value); angleVal.innerText = currentRotation; drawRotatePreview(); };
+      document.getElementById("btnRot90").onclick = () => { currentRotation = (currentRotation + 90) % 360; rotSlider.value = currentRotation; angleVal.innerText = currentRotation; drawRotatePreview(); };
+      document.getElementById("btnRotMin90").onclick = () => { currentRotation = (currentRotation - 90) % 360; rotSlider.value = currentRotation; angleVal.innerText = currentRotation; drawRotatePreview(); };
+      document.getElementById("btnFlipH").onclick = () => { scaleX *= -1; drawRotatePreview(); };
+      document.getElementById("btnFlipV").onclick = () => { scaleY *= -1; drawRotatePreview(); };
 
       const closeRotate = () => rotateModal.classList.replace("flex", "hidden");
       document.getElementById("closeRotate").onclick = closeRotate;
@@ -1092,26 +1038,17 @@
         const canvas = document.createElement("canvas");
         const ctx = canvas.getContext("2d");
         const rad = (currentRotation * Math.PI) / 180;
-        const absCos = Math.abs(Math.cos(rad)),
-          absSin = Math.abs(Math.sin(rad));
+        const absCos = Math.abs(Math.cos(rad)), absSin = Math.abs(Math.sin(rad));
         const newW = currentImage.width * absCos + currentImage.height * absSin;
         const newH = currentImage.width * absSin + currentImage.height * absCos;
-        canvas.width = newW;
-        canvas.height = newH;
+        canvas.width = newW; canvas.height = newH;
         ctx.save();
         ctx.translate(newW / 2, newH / 2);
         ctx.rotate(rad);
         ctx.scale(scaleX, scaleY);
-        ctx.drawImage(
-          currentImage,
-          -currentImage.width / 2,
-          -currentImage.height / 2,
-        );
+        ctx.drawImage(currentImage, -currentImage.width / 2, -currentImage.height / 2);
         ctx.restore();
-        triggerDownload(
-          canvas.toDataURL("image/png"),
-          `rotated_${fileInput.files[0].name}.png`,
-        );
+        triggerDownload(canvas.toDataURL("image/png"), `rotated_${fileInput.files[0].name}.png`);
         closeRotate();
       };
 
@@ -1128,25 +1065,11 @@
           cropHeight = currentImage.height;
           cropWidth = currentImage.height * (ratioW / ratioH);
         }
-        canvas.width = cropWidth;
-        canvas.height = cropHeight;
+        canvas.width = cropWidth; canvas.height = cropHeight;
         const startX = (currentImage.width - cropWidth) / 2;
         const startY = (currentImage.height - cropHeight) / 2;
-        ctx.drawImage(
-          currentImage,
-          startX,
-          startY,
-          cropWidth,
-          cropHeight,
-          0,
-          0,
-          cropWidth,
-          cropHeight,
-        );
-        triggerDownload(
-          canvas.toDataURL("image/png"),
-          `cropped_${fileInput.files[0].name}.png`,
-        );
+        ctx.drawImage(currentImage, startX, startY, cropWidth, cropHeight, 0, 0, cropWidth, cropHeight);
+        triggerDownload(canvas.toDataURL("image/png"), `cropped_${fileInput.files[0].name}.png`);
         closeCrop();
       }
 

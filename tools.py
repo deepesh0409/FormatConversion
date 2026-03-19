@@ -5,7 +5,7 @@ from PIL import Image, ImageDraw, ImageFont
 import io
 import os
 import numpy as np
-import pillow_heif # <--- ADD THIS
+import pillow_heif 
 
 # Teach Pillow how to read Apple iPhone HEIC files!
 pillow_heif.register_heif_opener()
@@ -16,7 +16,7 @@ router = APIRouter()
 async def image_process(
     file: UploadFile = File(...),
     tool: str = Form(...),
-    extra_param: Optional[str] = Form("") # <--- Added for Watermark Text
+    extra_param: Optional[str] = Form("") 
 ):
     try:
         # Load image into memory
@@ -103,54 +103,45 @@ async def image_process(
             filename = f"{original_name}_upscaled.png"
             media_type = "image/png"
 
-        # 7. Add Watermark (NEW)
+        # 7. Add Watermark
         elif tool == "watermark":
             text = extra_param if extra_param else "FormatConverter"
             img = img.convert('RGBA')
             txt_layer = Image.new('RGBA', img.size, (255, 255, 255, 0))
             draw = ImageDraw.Draw(txt_layer)
             
-            # Make the text responsive to the image size
             font_size = max(int(img.width / 10), 20)
             try:
-                # Try to use standard Windows Arial font
                 font = ImageFont.truetype("arial.ttf", font_size)
             except:
                 font = ImageFont.load_default()
                 
-            # Calculate text size and center it
             bbox = draw.textbbox((0, 0), text, font=font)
             text_w = bbox[2] - bbox[0]
             text_h = bbox[3] - bbox[1]
             x = (img.width - text_w) / 2
             y = (img.height - text_h) / 2
             
-            # Draw semi-transparent white text
             draw.text((x, y), text, font=font, fill=(255, 255, 255, 128))
             
             img = Image.alpha_composite(img, txt_layer)
-            img = img.convert("RGB") # Convert back to RGB to save as JPG/PNG
+            img = img.convert("RGB")
             img.save(output, format="PNG")
             filename = f"{original_name}_watermarked.png"
             media_type = "image/png"
 
-        # 8. Auto Watermark Remover (NEW)
+        # 8. Auto Watermark Remover
         elif tool == "wm-remover":
             import cv2
-            # Convert to OpenCV format
             open_cv_image = np.array(img.convert('RGB'))
-            open_cv_image = open_cv_image[:, :, ::-1].copy() # RGB to BGR
+            open_cv_image = open_cv_image[:, :, ::-1].copy()
             
-            # Simple heuristic: Auto-detect bright/white semi-transparent text
             gray = cv2.cvtColor(open_cv_image, cv2.COLOR_BGR2GRAY)
-            # Find the brightest pixels (often white watermarks)
             _, mask = cv2.threshold(gray, 220, 255, cv2.THRESH_BINARY)
             
-            # Thicken the mask slightly to cover edges perfectly
             kernel = np.ones((5, 5), np.uint8)
             mask = cv2.dilate(mask, kernel, iterations=1)
             
-            # AI-assisted Inpainting (uses surrounding pixels to fill the watermark gap)
             result = cv2.inpaint(open_cv_image, mask, 3, cv2.INPAINT_TELEA)
             
             result = cv2.cvtColor(result, cv2.COLOR_BGR2RGB)
@@ -159,16 +150,15 @@ async def image_process(
             filename = f"{original_name}_cleaned.png"
             media_type = "image/png"
             
-        # 9. Compress to Exact KB (NEW)
+        # 9. Compress to Exact KB
         elif tool == "compress-exact":
             try:
-                target_kb = float(extra_param)
+                target_kb = float(extra_param) if extra_param else 50.0
             except:
-                target_kb = 50.0 # Default to 50KB if user types nothing
+                target_kb = 50.0
                 
             target_bytes = int(target_kb * 1024)
             
-            # Convert to RGB (JPEG is mandatory for extreme compression)
             if img.mode in ('RGBA', 'LA', 'P'):
                 background = Image.new('RGB', img.size, (255, 255, 255))
                 if img.mode == 'P':
@@ -177,10 +167,38 @@ async def image_process(
                 img = background
             else:
                 img = img.convert("RGB")
+            
+            low, high = 5, 95
+            best_quality = 5
+            
+            while low <= high:
+                mid = (low + high) // 2
+                temp_out = io.BytesIO()
+                img.save(temp_out, format="JPEG", quality=mid, optimize=True)
+                
+                if temp_out.tell() <= target_bytes:
+                    best_quality = mid
+                    low = mid + 1
+                else:
+                    high = mid - 1
+            
+            img.save(output, format="JPEG", quality=best_quality, optimize=True)
+            
+            while output.tell() > target_bytes:
+                new_width = int(img.width * 0.9)
+                new_height = int(img.height * 0.9)
+                if new_width < 10 or new_height < 10:
+                    break
+                img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+                
+                output = io.BytesIO()
+                img.save(output, format="JPEG", quality=best_quality, optimize=True)
+                
+            filename = f"{original_name}_{int(target_kb)}KB.jpg"
+            media_type = "image/jpeg"
 
-        # 10. HEIC to JPG (NEW)
+        # 10. HEIC to JPG
         elif tool == "heic-to-jpg":
-            # If the image has transparency or is weirdly formatted, composite it on white
             if img.mode in ('RGBA', 'LA', 'P'):
                 background = Image.new('RGB', img.size, (255, 255, 255))
                 if img.mode == 'P':
@@ -193,53 +211,35 @@ async def image_process(
             img.save(output, format="JPEG", quality=95)
             filename = f"{original_name}.jpg"
             media_type = "image/jpeg"
-            
-            # Step 1: Binary search to find the highest quality that fits the size
-            low, high = 5, 95
-            best_quality = 5
-            
-            while low <= high:
-                mid = (low + high) // 2
-                temp_out = io.BytesIO()
-                img.save(temp_out, format="JPEG", quality=mid, optimize=True)
-                
-                if temp_out.tell() <= target_bytes:
-                    best_quality = mid
-                    low = mid + 1 # Try to get higher quality
-                else:
-                    high = mid - 1 # Quality is too high, size is too big
 
-        # 11. Image to WebP (NEW)
+        # 11. Image to WebP
         elif tool == "to-webp":
-            # WebP natively supports transparency (RGBA), so we just convert it directly!
-            # If the image is a weird format like Palette (P), convert to RGBA to be safe.
             if img.mode not in ('RGB', 'RGBA'):
                 img = img.convert('RGBA')
-            
-            # Save as WebP (quality=80 is the standard sweet spot for WebP)
             img.save(output, format="WEBP", quality=80, method=4)
             filename = f"{original_name}.webp"
             media_type = "image/webp"
 
         # 12. Extract Text from Image (OCR)
-        
+        elif tool == "extract-text":
+            import pytesseract
             
-            # Apply the best found quality
-            img.save(output, format="JPEG", quality=best_quality, optimize=True)
+            # Make sure this path matches where Tesseract is installed on your PC!
+            pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
             
-            # Step 2: If even quality=5 is too big, we must reduce the physical dimensions
-            while output.tell() > target_bytes:
-                new_width = int(img.width * 0.9) # Shrink by 10%
-                new_height = int(img.height * 0.9)
-                if new_width < 10 or new_height < 10:
-                    break # Safety escape
-                img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
+            img_gray = img.convert('L')
+            
+            try:
+                extracted_text = pytesseract.image_to_string(img_gray)
+            except Exception as e:
+                raise Exception("Tesseract OCR not found. Please install Tesseract on your computer first!")
+
+            if not extracted_text.strip():
+                extracted_text = "No text could be found in this image. Try an image with clearer, larger text."
                 
-                output = io.BytesIO() # Reset buffer
-                img.save(output, format="JPEG", quality=best_quality, optimize=True)
-                
-            filename = f"{original_name}_{int(target_kb)}KB.jpg"
-            media_type = "image/jpeg"
+            output = io.BytesIO(extracted_text.encode('utf-8'))
+            filename = f"{original_name}_extracted.txt"
+            media_type = "text/plain"
 
         else:
             return JSONResponse(status_code=400, content={"error": f"Unsupported tool: {tool}"})
