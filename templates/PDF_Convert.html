@@ -359,12 +359,17 @@
       processBtn.onclick = async () => {
         const selectedFiles = Array.from(fileInput.files);
         if (!selectedFiles.length) { alert("Please upload a file first."); return; }
+        
+        // FIXED: The missing bracket was right here!
         if (activeTool === "merge-pdf" && selectedFiles.length < 2) {
-          alert("Merge requires at least 2 PDF files. Please select more files."); return;
-        }
+          alert("Merge requires at least 2 PDF files. Please select more files."); 
+          return;
+        } 
 
         let finalExtraParam = "";
-        if (pdfToolConfig[activeTool].isTranslate) {
+        
+        // Get dropdown value OR text input value
+        if (pdfToolConfig[activeTool] && pdfToolConfig[activeTool].isTranslate) {
             finalExtraParam = document.getElementById("langSelect").value;
         } else if (!extraInputContainer.classList.contains("hidden")) {
             finalExtraParam = extraInput.value.trim();
