@@ -1,5 +1,5 @@
 from fastapi import FastAPI, UploadFile, File, Form, Query, Request, BackgroundTasks
-from fastapi.responses import FileResponse, HTMLResponse, JSONResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from typing import List, Optional
@@ -151,18 +151,38 @@ async def image_tool_page(request: Request, tool_id: str):
         "seo_desc": seo_data["desc"]
     })
 
+
 # --- SYSTEM FILES ---
-@app.get("/llms.txt", response_class=FileResponse)
-async def get_llms_txt():
-    return FileResponse("llms.txt", media_type="text/plain")
-
-@app.get("/robots.txt", response_class=FileResponse)
+@app.get("/robots.txt")
 async def get_robots_txt():
-    return FileResponse("robots.txt", media_type="text/plain")
+    content = """Sitemap: https://formatconvertion-production.up.railway.app/sitemap.xml
 
-@app.get("/sitemap.xml", response_class=FileResponse)
+User-agent: *
+Allow: /
+
+# Block bots from crawling our private backend endpoints
+Disallow: /api/
+Disallow: /image-process
+Disallow: /uploads/
+Disallow: /output/
+Disallow: /Static/"""
+    return Response(content=content, media_type="text/plain")
+
+
+@app.get("/sitemap.xml")
 async def get_sitemap_xml():
-    return FileResponse("sitemap.xml", media_type="application/xml")
+    content = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://formatconvertion-production.up.railway.app/</loc><priority>1.0</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/pdf_Convertion</loc><priority>0.9</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/Image_Convertion</loc><priority>0.9</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/about</loc><priority>0.8</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/privacy</loc><priority>0.5</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/terms</loc><priority>0.5</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/help</loc><priority>0.7</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/contact</loc><priority>0.7</priority></url>
+</urlset>"""
+    return Response(content=content, media_type="application/xml")
 
 
 # ------------------ PDF CONVERSION FUNCTIONS ------------------
