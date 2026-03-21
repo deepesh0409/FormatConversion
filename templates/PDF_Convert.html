@@ -1,167 +1,81 @@
 <!doctype html>
 <html lang="en">
   <head>
-
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDWTKF4TJE"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-     gtag('js', new Date());
-
-      gtag('config', 'G-XDWTKF4TJE');
-    </script>
-
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
     <title>{{ seo_title }} – FormatConverter</title>
     <meta name="description" content="{{ seo_desc }}" />
-
-    <link
-      rel="icon"
-      href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>"
-    />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>📄</text></svg>" />
     <link href="/Static/output.css" rel="stylesheet" />
   </head>
 
-  <!-- ADDED flex flex-col TO BODY SO NAVBAR STICKS PROPERLY -->
   <body class="bg-linear-to-br from-slate-900 via-slate-800 to-slate-900 text-white min-h-screen flex flex-col">
-    <!-- BULLETPROOF NAVBAR -->
-    <header class="sticky top-0 z-100 w-full relative bg-slate-900/95 backdrop-blur-md border-b border-slate-800">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6">
-        <div class="flex justify-between items-center h-16">
-          <!-- Logo -->
-          <a href="/" class="flex items-center gap-2 shrink-0">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="28"
-              height="28"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              class="text-indigo-500"
-            >
-              <path
-                d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"
-              ></path>
+    
+    <!-- MASTER NAVBAR -->
+    <nav class="sticky top-0 z-[100] border-b border-slate-700/50 bg-slate-900/95 backdrop-blur relative">
+      <div class="mx-auto max-w-7xl px-4 sm:px-6">
+        <div class="flex h-16 items-center justify-between">
+          <div class="flex items-center gap-2 shrink-0">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-indigo-500">
+              <path d="M4 22h14a2 2 0 0 0 2-2V7.5L14.5 2H6a2 2 0 0 0-2 2v4"></path>
               <polyline points="14 2 14 8 20 8"></polyline>
               <path d="M3 15h6"></path>
               <path d="M6 12v6"></path>
             </svg>
-            <span
-              class="text-2xl font-extrabold tracking-wide text-white hover:text-indigo-400 transition-colors"
-            >
+            <a href="/" class="text-2xl font-extrabold tracking-wide hover:text-indigo-400 transition-colors">
               Format<span class="text-indigo-500">Converter</span>
-            </span>
-          </a>
-
-          <!-- Desktop Menu -->
-          <div class="hidden md:flex items-center space-x-6">
-            <a
-              href="/pdf_Convertion"
-              class="text-slate-300 hover:text-white transition text-sm font-medium"
-              >PDF Tools</a
-            >
-            <a
-              href="/Image_Convertion"
-              class="text-slate-300 hover:text-white transition text-sm font-medium"
-              >Image Tools</a
-            >
-            <a
-              href="/about"
-              class="text-slate-300 hover:text-white transition text-sm font-medium"
-              >About</a
-            >
-            <div class="h-6 w-px bg-slate-700"></div>
-            <button
-              class="text-sm font-medium text-slate-300 hover:text-white transition"
-            >
-              Sign In
-            </button>
-            <button
-              class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/20 transition text-sm font-semibold text-white"
-            >
-              Get Started Free
-            </button>
+            </a>
+          </div>
+  
+          <!-- Center: Navigation Links -->
+          <div class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center space-x-8">
+            <a href="/" class="text-slate-300 hover:text-white transition text-sm font-medium">Home</a>
+            <a href="/pdf_Convertion" class="text-slate-300 hover:text-white transition text-sm font-medium">PDF Tools</a>
+            <a href="/Image_Convertion" class="text-slate-300 hover:text-white transition text-sm font-medium">Image Tools</a>
+            <a href="/about" class="text-slate-300 hover:text-white transition text-sm font-medium">About</a>
           </div>
 
-          <!-- Mobile Hamburger -->
-          <div class="flex md:hidden items-center">
-            <button
-              id="mobile-menu-button"
-              class="text-slate-300 hover:text-white p-2 focus:outline-none" 
-            >
-              <svg
-                id="menu-icon-open"
-                class="w-6 h-6 block"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M4 6h16M4 12h16M4 18h16"
-                ></path>
+          <div class="hidden md:flex items-center space-x-4 shrink-0">
+            <button class="text-sm font-medium text-slate-300 hover:text-white transition">Sign In</button>
+            <button class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/20 transition text-sm font-semibold text-white">Get Started Free</button>
+          </div>
+
+          <div class="-mr-2 flex md:hidden">
+            <button id="mobile-menu-button" type="button" class="inline-flex items-center justify-center p-2 rounded-md text-slate-400 hover:text-white hover:bg-slate-800 focus:outline-none transition">
+              <svg id="menu-icon-open" class="block h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
               </svg>
-              <svg
-                id="menu-icon-close"
-                class="w-6 h-6 hidden"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M6 18L18 6M6 6l12 12"
-                ></path>
+              <svg id="menu-icon-close" class="hidden h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>
           </div>
         </div>
       </div>
 
-      <!-- FLOATING Mobile Dropdown Menu -->
-    <div id="mobile-menu" class="hidden md:hidden absolute left-0 top-full w-full bg-slate-900 border-b border-slate-700 shadow-2xl">
-      <div class="px-4 pt-4 pb-4 space-y-2">
-        <a href="/" class="block px-4 py-3 rounded-lg text-base font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition">Home</a>
-        <a href="/pdf_Convertion" class="text-slate-300 hover:text-white hover:bg-slate-800 block px-4 py-3 rounded-xl text-base font-medium transition">PDF Tools</a>
-        <a href="/Image_Convertion" class="text-slate-300 hover:text-white hover:bg-slate-800 block px-4 py-3 rounded-xl text-base font-medium transition">Image Tools</a>
-        <a href="/about" class="text-slate-300 hover:text-white hover:bg-slate-800 block px-4 py-3 rounded-xl text-base font-medium transition">About</a>
+      <div id="mobile-menu" class="hidden md:hidden absolute left-0 top-full w-full bg-slate-900 border-b border-slate-700 shadow-2xl">
+        <div class="px-4 pt-4 pb-4 space-y-2">
+          <a href="/" class="text-slate-300 hover:text-white hover:bg-slate-800 block px-4 py-3 rounded-xl text-base font-medium transition">Home</a>
+          <a href="/pdf_Convertion" class="text-slate-300 hover:text-white hover:bg-slate-800 block px-4 py-3 rounded-xl text-base font-medium transition">PDF Tools</a>
+          <a href="/Image_Convertion" class="text-slate-300 hover:text-white hover:bg-slate-800 block px-4 py-3 rounded-xl text-base font-medium transition">Image Tools</a>
+          <a href="/about" class="text-slate-300 hover:text-white hover:bg-slate-800 block px-4 py-3 rounded-xl text-base font-medium transition">About</a>
+        </div>
+        <div class="pt-4 pb-6 border-t border-slate-700 px-5 space-y-3">
+          <button class="w-full px-4 py-3 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition border border-slate-700 rounded-xl">Sign In</button>
+          <button class="w-full px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/20 transition text-sm font-semibold text-white">Get Started Free</button>
+        </div>
       </div>
-      <div class="pt-4 pb-6 border-t border-slate-700 px-5 space-y-3">
-        <button class="w-full px-4 py-3 text-sm font-medium text-slate-300 hover:text-white hover:bg-slate-800 transition border border-slate-700 rounded-xl">Sign In</button>
-        <button class="w-full px-5 py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 shadow-lg shadow-indigo-500/20 transition text-sm font-semibold text-white">Get Started Free</button>
-      </div>
-    </div>
-      </div>
-    </header>
+    </nav>
 
     <!-- Main Workspace -->
     <main class="grow">
-      <section
-        class="max-w-6xl mx-auto px-4 sm:px-6 pt-12 grid md:grid-cols-2 gap-8 md:gap-12 items-center"
-      >
+      <section class="max-w-6xl mx-auto px-4 sm:px-6 pt-12 grid md:grid-cols-2 gap-8 md:gap-12 items-center">
         <div>
-          <h2
-            id="toolTitle"
-            class="text-4xl md:text-5xl font-extrabold leading-tight"
-          >
+          <h2 id="toolTitle" class="text-4xl md:text-5xl font-extrabold leading-tight">
             Smart <span class="text-indigo-400">PDF Tools</span>
           </h2>
-          <p
-            id="toolDesc"
-            class="mt-4 md:mt-6 text-slate-300 text-base md:text-lg"
-          >
-            Convert, compress, extract and transform PDFs using AI-powered
-            workflows.
+          <p id="toolDesc" class="mt-4 md:mt-6 text-slate-300 text-base md:text-lg">
+            Convert, compress, extract and transform PDFs using AI-powered workflows.
           </p>
           <div class="mt-6 md:mt-8 flex flex-wrap gap-4 text-sm text-slate-400">
             <span>✓ PDF, DOCX, PPTX</span>
@@ -170,447 +84,142 @@
           </div>
         </div>
 
-        <div
-          class="bg-slate-800/60 border border-slate-700 backdrop-blur rounded-3xl p-6 sm:p-8 shadow-xl"
-        >
-          <div
-            class="mb-6 flex items-center gap-3 bg-indigo-500/10 border border-indigo-500/20 w-fit px-4 py-2 rounded-full"
-          >
+        <div class="bg-slate-800/60 border border-slate-700 backdrop-blur rounded-3xl p-6 sm:p-8 shadow-xl">
+          <div class="mb-6 flex items-center gap-3 bg-indigo-500/10 border border-indigo-500/20 w-fit px-4 py-2 rounded-full">
             <span id="toolBadgeIcon" class="text-xl"></span>
-            <span
-              id="toolBadgeName"
-              class="text-xs sm:text-sm font-bold text-indigo-400 uppercase tracking-widest"
-            ></span>
+            <span id="toolBadgeName" class="text-xs sm:text-sm font-bold text-indigo-400 uppercase tracking-widest"></span>
           </div>
 
-          <div
-            id="dropZone"
-            class="border-2 border-dashed border-slate-500 rounded-2xl p-8 sm:p-10 text-center cursor-pointer hover:border-indigo-400 transition group"
-          >
-            <div
-              id="toolIcon"
-              class="text-4xl mb-3 group-hover:scale-110 transition-transform"
-            >
-              📄
-            </div>
-            <input
-              type="file"
-              id="fileInput"
-              class="hidden"
-              accept="application/pdf"
-            />
-            <p
-              id="fileNameDisplay"
-              class="text-base sm:text-lg font-semibold break-all px-2"
-            >
-              Drop your PDF here
-            </p>
-            <p class="text-slate-400 mt-2 text-xs sm:text-sm">
-              Max 100MB • Auto delete
-            </p>
+          <div id="dropZone" class="border-2 border-dashed border-slate-500 rounded-2xl p-8 sm:p-10 text-center cursor-pointer hover:border-indigo-400 transition group">
+            <div id="toolIcon" class="text-4xl mb-3 group-hover:scale-110 transition-transform">📄</div>
+            <input type="file" id="fileInput" class="hidden" accept="application/pdf" />
+            <p id="fileNameDisplay" class="text-base sm:text-lg font-semibold break-all px-2">Drop your PDF here</p>
+            <p class="text-slate-400 mt-2 text-xs sm:text-sm">Max 100MB • Auto delete</p>
           </div>
 
+          <!-- Dynamic Input Fields -->
           <div id="extraInputContainer" class="hidden mt-4">
-            <input
-              type="text"
-              id="extraInput"
-              placeholder="Enter text here..."
-              class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-white focus:border-indigo-500 outline-none transition"
-            />
+            <!-- Used for Passwords / Watermarks -->
+            <input type="text" id="extraInput" placeholder="Enter text here..." class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-white focus:border-indigo-500 outline-none transition hidden" />
+            
+            <!-- Used for the Translator -->
+            <select id="langSelect" class="w-full bg-slate-900 border border-slate-600 rounded-xl px-4 py-3 text-white focus:border-indigo-500 outline-none transition hidden">
+              <option value="hi">Hindi (हिंदी)</option>
+              <option value="mr">Marathi (मराठी)</option>
+              <option value="bn">Bengali (বাংলা)</option>
+              <option value="te">Telugu (తెలుగు)</option>
+              <option value="ta">Tamil (தமிழ்)</option>
+              <option value="gu">Gujarati (ગુજરાતી)</option>
+              <option value="ur">Urdu (اردو)</option>
+              <option value="pa">Punjabi (ਪੰਜਾਬੀ)</option>
+              <option value="ml">Malayalam (മലയാളം)</option>
+              <option value="kn">Kannada (ಕന്നಡ)</option>
+              <option value="es">Spanish (Español)</option>
+              <option value="fr">French (Français)</option>
+              <option value="de">German (Deutsch)</option>
+              <option value="ar">Arabic (العربية)</option>
+            </select>
           </div>
 
-          <button
-            id="processBtn"
-            class="w-full mt-6 px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 transition font-bold text-base sm:text-lg shadow-lg shadow-indigo-500/30"
-          >
+          <button id="processBtn" class="w-full mt-6 px-6 py-3.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 transition font-bold text-base sm:text-lg shadow-lg shadow-indigo-500/30">
             Process PDF
           </button>
 
-          <div
-            id="suggestionGrid"
-            class="mt-6 md:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4"
-          ></div>
+          <div id="suggestionGrid" class="mt-6 md:mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4"></div>
         </div>
       </section>
 
-      <section
-        class="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-20 mt-12 md:mt-16 border-t border-slate-800"
-      >
+      <section class="max-w-7xl mx-auto px-4 sm:px-6 py-16 md:py-20 mt-12 md:mt-16 border-t border-slate-800">
         <div class="text-center mb-12 md:mb-16">
-          <h2 class="text-3xl md:text-4xl font-extrabold mb-4">
-            Powerful PDF Tools
-          </h2>
+          <h2 class="text-3xl md:text-4xl font-extrabold mb-4">Powerful PDF Tools</h2>
           <p class="text-slate-400 max-w-3xl mx-auto text-base md:text-lg">
-            Convert, organize, edit, and optimize PDF documents with
-            professional accuracy.
+            Convert, organize, edit, and optimize PDF documents with professional accuracy.
           </p>
         </div>
 
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8"
-        >
-          <a
-            href="/pdf/translate-pdf-en-hi"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-          >
-            <div class="text-3xl mb-4">🇮🇳</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Translate to Hindi
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Translate English PDFs to Hindi instantly.
-            </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          <a href="/pdf/translate-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition">
+            <div class="text-3xl mb-4">🌍</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Translate PDF</h3><p class="text-slate-400 text-sm">Translate PDF documents into multiple global languages.</p>
           </a>
-
-          <a href="/pdf/text-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition">
-            <div class="text-3xl mb-4">📝</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Text to PDF</h3>
-            <p class="text-slate-400 text-sm">Convert plain text files into PDF documents.</p>
-          </a>
-
-          <a
-            href="/pdf/merge-pdf"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-3xl mb-4">📚</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Merge PDF
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Combine multiple PDFs into a single document.
-            </p></a
-          >
-          <a
-            href="/pdf/split-pdf"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-3xl mb-4">✂️</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Split PDF
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Extract pages or split PDFs into separate files.
-            </p></a
-          >
-          <a
-            href="/pdf/compress-pdf"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-3xl mb-4">📉</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Compress PDF
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Reduce PDF size without losing quality.
-            </p></a
-          >
-          <a
-            href="/pdf/pdf-to-word"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-3xl mb-4">📄</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              PDF to Word
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Convert PDFs into editable DOCX files.
-            </p></a
-          >
-          <a
-            href="/pdf/pdf-to-excel"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-3xl mb-4">📊</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              PDF to Excel
-            </h3>
-            <p class="text-slate-400 text-sm">Extract tables instantly.</p></a
-          >
-          <a
-            href="/pdf/word-to-pdf"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-3xl mb-4">📝</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Word to PDF
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Convert Word documents into perfect PDFs.
-            </p></a
-          >
-          <a
-            href="/pdf/excel-to-pdf"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-xl mb-4">📈</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Excel to PDF
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Convert Excel spreadsheets into easy-to-read PDFs.
-            </p></a
-          >
-          <a
-            href="/pdf/ppt-to-pdf"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-3xl mb-4">📊</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              PPT to PDF
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Convert PowerPoint slides into a PDF document.
-            </p></a
-          >
-          <a
-            href="/pdf/pdf-to-ppt"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-3xl mb-4">📽️</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              PDF to PPT
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Turn PDFs into editable PowerPoint slides.
-            </p></a
-          >
-          <a
-            href="/pdf/pdf-to-image"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-3xl mb-4">🖼️</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              PDF to Image
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Convert each PDF page into high-quality PNG images.
-            </p></a
-          >
-          <a
-            href="/pdf/image-to-pdf"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-xl mb-4">🖼️</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Image to PDF
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Combine multiple JPG/PNG images into one PDF.
-            </p></a
-          >
-          <a
-            href="/pdf/extract-images"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-xl mb-4">📥</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Extract Images
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Extract all embedded pictures from your PDF.
-            </p></a
-          >
-          <a
-            href="/pdf/watermark-pdf"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-xl mb-4">✏️</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Add Watermark
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Stamp custom text across all pages.
-            </p></a
-          >
-          <a
-            href="/pdf/protect-pdf"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-xl mb-4">🔒</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Protect PDF
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Encrypt your PDF with a secure password.
-            </p></a
-          >
-          <a
-            href="/pdf/unlock-pdf"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div div class="text-3xl mb-4">🔓</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Unlock PDF
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Remove password encryption from your PDF.
-            </p></a
-          >
-          <a
-            href="/pdf/reorder-pages"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div div class="text-3xl mb-4">📑</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Reorder Pages
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Change the order of pages in your PDF.
-            </p></a
-          >
-          <a
-            href="/pdf/remove-pages"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div div class="text-3xl mb-4">🗑️</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Remove Pages
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Delete unwanted pages from your PDF.
-            </p></a
-          >
-          <a
-            href="/pdf/rotate-pdf"
-            class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"
-            ><div class="text-3xl mb-4">🔄</div>
-            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">
-              Rotate PDF
-            </h3>
-            <p class="text-slate-400 text-sm">
-              Rotate all pages by 90, 180, or 270 degrees.
-            </p></a
-          >
-          
+          <a href="/pdf/merge-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📚</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Merge PDF</h3><p class="text-slate-400 text-sm">Combine multiple PDFs into a single document.</p></a>
+          <a href="/pdf/split-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">✂️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Split PDF</h3><p class="text-slate-400 text-sm">Extract pages or split PDFs into separate files.</p></a>
+          <a href="/pdf/compress-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📉</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Compress PDF</h3><p class="text-slate-400 text-sm">Reduce PDF size without losing quality.</p></a>
+          <a href="/pdf/pdf-to-word" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📄</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PDF to Word</h3><p class="text-slate-400 text-sm">Convert PDFs into editable DOCX files.</p></a>
+          <a href="/pdf/pdf-to-excel" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📊</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PDF to Excel</h3><p class="text-slate-400 text-sm">Extract tables instantly.</p></a>
+          <a href="/pdf/word-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📝</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Word to PDF</h3><p class="text-slate-400 text-sm">Convert Word documents into perfect PDFs.</p></a>
+          <a href="/pdf/text-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📝</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Text to PDF</h3><p class="text-slate-400 text-sm">Convert plain text files into PDF documents.</p></a>
+          <a href="/pdf/excel-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-xl mb-4">📈</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Excel to PDF</h3><p class="text-slate-400 text-sm">Convert Excel spreadsheets into easy-to-read PDFs.</p></a>
+          <a href="/pdf/ppt-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📊</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PPT to PDF</h3><p class="text-slate-400 text-sm">Convert PowerPoint slides into a PDF document.</p></a>
+          <a href="/pdf/pdf-to-ppt" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📽️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PDF to PPT</h3><p class="text-slate-400 text-sm">Turn PDFs into editable PowerPoint slides.</p></a>
+          <a href="/pdf/pdf-to-image" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🖼️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">PDF to Image</h3><p class="text-slate-400 text-sm">Convert each PDF page into high-quality PNG images.</p></a>
+          <a href="/pdf/image-to-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-xl mb-4">🖼️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Image to PDF</h3><p class="text-slate-400 text-sm">Combine multiple JPG/PNG images into one PDF.</p></a>
+          <a href="/pdf/extract-images" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-xl mb-4">📥</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Extract Images</h3><p class="text-slate-400 text-sm">Extract all embedded pictures from your PDF.</p></a>
+          <a href="/pdf/watermark-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-xl mb-4">✏️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Add Watermark</h3><p class="text-slate-400 text-sm">Stamp custom text across all pages.</p></a>
+          <a href="/pdf/protect-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-xl mb-4">🔒</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Protect PDF</h3><p class="text-slate-400 text-sm">Encrypt your PDF with a secure password.</p></a>
+          <a href="/pdf/unlock-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🔓</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Unlock PDF</h3><p class="text-slate-400 text-sm">Remove password encryption from your PDF.</p></a>
+          <a href="/pdf/reorder-pages" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">📑</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Reorder Pages</h3><p class="text-slate-400 text-sm">Change the order of pages in your PDF.</p></a>
+          <a href="/pdf/remove-pages" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🗑️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Remove Pages</h3><p class="text-slate-400 text-sm">Delete unwanted pages from your PDF.</p></a>
+          <a href="/pdf/rotate-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🔄</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Rotate PDF</h3><p class="text-slate-400 text-sm">Rotate all pages by 90, 180, or 270 degrees.</p></a>
+          <a href="/pdf/add-page-numbers" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🔢</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Add Page Numbers</h3><p class="text-slate-400 text-sm">Add pagination to the bottom of each page.</p></a>
         </div>
       </section>
     </main>
 
     <!-- Modern Mega Footer -->
-    <footer
-      class="border-t border-slate-800 bg-slate-900/50 pt-16 pb-8 mt-auto text-left"
-    >
+    <footer class="border-t border-slate-800 bg-slate-900/50 pt-16 pb-8 mt-auto text-left">
       <div class="max-w-7xl mx-auto px-6">
-        <!-- We use lg:grid-cols-5 to give the logo/text more room, just like your reference image -->
-        <div
-          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-16"
-        >
-          <!-- Brand Column (Takes up 2 columns of space on desktop) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 lg:gap-12 mb-16">
           <div class="sm:col-span-2 lg:col-span-2">
-            <a
-              href="/"
-              class="text-2xl font-extrabold tracking-wide text-white hover:text-indigo-400 transition-colors"
-            >
+            <a href="/" class="text-2xl font-extrabold tracking-wide text-white hover:text-indigo-400 transition-colors">
               Format<span class="text-indigo-500">Converter</span>
             </a>
-            <p
-              class="mt-4 text-sm text-slate-400 leading-relaxed pr-4 lg:pr-12"
-            >
-              Revolutionizing the way you handle documents with high-speed,
-              secure, and AI-powered conversion tools.
+            <p class="mt-4 text-sm text-slate-400 leading-relaxed pr-4 lg:pr-12">
+              Revolutionizing the way you handle documents with high-speed, secure, and AI-powered conversion tools.
             </p>
           </div>
-
-          <!-- Product Column -->
           <div class="col-span-1">
             <h3 class="text-white font-semibold mb-6">Product</h3>
             <ul class="space-y-4">
-              <li>
-                <a
-                  href="/pdf_Convertion"
-                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
-                  >PDF Converter</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/Image_Convertion"
-                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
-                  >Image Converter</a
-                >
-              </li>
-              <li>
-                <a
-                  href="#"
-                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
-                  >AI Summary</a
-                >
-              </li>
+              <li><a href="/pdf/pdf-to-word" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">PDF Converter</a></li>
+              <li><a href="/image/jpg-to-png" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Image Converter</a></li>
+              <li><a href="#" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">AI Summary</a></li>
             </ul>
           </div>
-
-          <!-- Company Column -->
           <div class="col-span-1">
             <h3 class="text-white font-semibold mb-6">Company</h3>
             <ul class="space-y-4">
-              <li>
-                <a
-                  href="/about"
-                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
-                  >About Us</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/privacy"
-                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
-                  >Privacy Policy</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/terms"
-                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
-                  >Terms of Service</a
-                >
-              </li>
+              <li><a href="/about" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">About Us</a></li>
+              <li><a href="/privacy" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Privacy Policy</a></li>
+              <li><a href="/terms" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Terms of Service</a></li>
             </ul>
           </div>
-
-          <!-- Support Column -->
           <div class="col-span-1">
             <h3 class="text-white font-semibold mb-6">Support</h3>
             <ul class="space-y-4">
-              <li>
-                <a
-                  href="/help"
-                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
-                  >Help Center</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/contact"
-                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
-                  >Contact Us</a
-                >
-              </li>
-              <li>
-                <a
-                  href="/api-docs"
-                  class="text-sm text-slate-400 hover:text-indigo-400 transition-colors"
-                  >API Documentation</a
-                >
-              </li>
+              <li><a href="/help" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Help Center</a></li>
+              <li><a href="/contact" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">Contact Us</a></li>
+              <li><a href="/api-docs" class="text-sm text-slate-400 hover:text-indigo-400 transition-colors">API Documentation</a></li>
             </ul>
           </div>
         </div>
-
-        <!-- Bottom Copyright Row -->
-        <div
-          class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-center items-center text-sm text-slate-500"
-        >
-          <p>
-            © 2026 FormatConverter. Intelligent Document Tools. Made with
-            <span class="text-red-500 text-base mx-1">❤️</span> in INDIA.
-          </p>
+        <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-center items-center text-sm text-slate-500">
+          <p>© <span id="year">2026</span> FormatConverter. Intelligent Document Tools. Made with <span class="text-red-500 text-base mx-1">❤️</span> in INDIA.</p>
         </div>
       </div>
     </footer>
 
-    <!-- Overlay -->
-    <div
-      id="processingOverlay"
-      class="fixed inset-0 bg-slate-900/90 backdrop-blur-sm hidden items-center justify-center z-50"
-    >
-      <div
-        class="bg-slate-800 border border-slate-700 rounded-3xl p-8 sm:p-10 w-[90%] max-w-md text-center shadow-2xl"
-      >
+    <!-- Processing Overlay -->
+    <div id="processingOverlay" class="fixed inset-0 bg-slate-900/90 backdrop-blur-sm hidden items-center justify-center z-50">
+      <div class="bg-slate-800 border border-slate-700 rounded-3xl p-8 sm:p-10 w-[90%] max-w-md text-center shadow-2xl">
         <div class="flex justify-center mb-6">
-          <div
-            class="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"
-          ></div>
+          <div class="w-12 h-12 border-4 border-indigo-500 border-t-transparent rounded-full animate-spin"></div>
         </div>
         <h3 class="text-lg md:text-xl font-bold mb-2">Processing your PDF</h3>
-        <p class="text-slate-400 text-sm">
-          Please wait while we work our magic...
-        </p>
+        <p class="text-slate-400 text-sm">Please wait while we work our magic...</p>
       </div>
     </div>
 
+    <!-- JAVASCRIPT -->
     <script>
       const pdfToolConfig = {
         "pdf-to-word": { name: "PDF to Word", icon: "📄", desc: "Convert PDF files into fully editable Word documents.", related:["pdf-to-excel", "pdf-to-ppt", "compress-pdf"], },
@@ -618,23 +227,23 @@
         "pdf-to-ppt": { name: "PDF to PowerPoint", icon: "📽️", desc: "Turn PDFs into editable PowerPoint slides.", related:["pdf-to-word", "compress-pdf"], },
         "compress-pdf": { name: "Compress PDF", icon: "📉", desc: "Reduce PDF size without losing quality.", related:["pdf-to-word", "merge-pdf"], },
         "merge-pdf": { name: "Merge PDF", icon: "📚", desc: "Combine multiple PDFs into one file.", related: ["split-pdf", "compress-pdf"], },
-        "split-pdf": { name: "Split PDF", icon: "✂️", desc: "Split PDF pages into separate files.", related: ["merge-pdf"], },
-        "pdf-to-mp3": { name: "PDF to MP3", icon: "🎧", desc: "Listen to your PDFs using AI voice narration.", related: ["pdf-to-word"], },
+        "split-pdf": { name: "Split PDF", icon: "✂️", desc: "Split PDF pages into separate files.", related:["merge-pdf"], },
+        "pdf-to-mp3": { name: "PDF to MP3", icon: "🎧", desc: "Listen to your PDFs using AI voice narration.", related:["pdf-to-word"], },
         "pdf-to-image": { name: "PDF to Image", icon: "🖼️", desc: "Convert each PDF page into high-quality PNG images.", related:["compress-pdf", "image-to-pdf"], },
-        "image-to-pdf": { name: "Image to PDF", icon: "🖼️", desc: "Convert one or multiple images into a single PDF document.", related: ["pdf-to-image", "compress-pdf"], },
-        "word-to-pdf": { name: "Word to PDF", icon: "📝", desc: "Convert Word documents (.docx) into PDFs.", related: ["pdf-to-word", "merge-pdf"], },
-        "excel-to-pdf": { name: "Excel to PDF", icon: "📈", desc: "Convert Excel spreadsheets (.xlsx) into PDFs.", related: ["pdf-to-excel", "merge-pdf"], },
-        "ppt-to-pdf": { name: "PPT to PDF", icon: "📊", desc: "Convert PowerPoint presentations (.pptx) into PDFs.", related: ["pdf-to-ppt", "merge-pdf"], },
+        "image-to-pdf": { name: "Image to PDF", icon: "🖼️", desc: "Convert one or multiple images into a single PDF document.", related:["pdf-to-image", "compress-pdf"], },
+        "word-to-pdf": { name: "Word to PDF", icon: "📝", desc: "Convert Word documents (.docx) into PDFs.", related:["pdf-to-word", "merge-pdf"], },
+        "text-to-pdf": { name: "Text to PDF", icon: "📝", desc: "Convert plain text files (.txt) into PDF documents.", related:["pdf-to-text", "pdf-to-word"] },
+        "excel-to-pdf": { name: "Excel to PDF", icon: "📈", desc: "Convert Excel spreadsheets (.xlsx) into PDFs.", related:["pdf-to-excel", "merge-pdf"], },
+        "ppt-to-pdf": { name: "PPT to PDF", icon: "📊", desc: "Convert PowerPoint presentations (.pptx) into PDFs.", related:["pdf-to-ppt", "merge-pdf"], },
         "watermark-pdf": { name: "Add Watermark", icon: "✏️", desc: "Stamp custom text or watermarks across all PDF pages.", related:["protect-pdf", "compress-pdf"], extraInputPrompt: "Enter Watermark Text (e.g. CONFIDENTIAL)", },
         "protect-pdf": { name: "Protect PDF", icon: "🔒", desc: "Encrypt your PDF with a secure password.", related:["watermark-pdf", "compress-pdf"], extraInputPrompt: "Enter secure password...", },
-        "unlock-pdf": { name: "Unlock PDF", icon: "🔓", desc: "Remove password encryption from your PDF.", related: ["protect-pdf", "compress-pdf"], extraInputPrompt: "Enter current password to unlock...", },
-        "remove-pages": { name: "Remove Pages", icon: "🗑️", desc: "Delete specific pages from your PDF.", related: ["split-pdf", "merge-pdf"], extraInputPrompt: "Pages to delete (e.g., 1, 3, 5)", },
+        "unlock-pdf": { name: "Unlock PDF", icon: "🔓", desc: "Remove password encryption from your PDF.", related:["protect-pdf", "compress-pdf"], extraInputPrompt: "Enter current password to unlock...", },
+        "remove-pages": { name: "Remove Pages", icon: "🗑️", desc: "Delete specific pages from your PDF.", related:["split-pdf", "merge-pdf"], extraInputPrompt: "Pages to delete (e.g., 1, 3, 5)", },
         "rotate-pdf": { name: "Rotate PDF", icon: "🔄", desc: "Rotate all pages in your PDF.", related:["merge-pdf", "remove-pages"], extraInputPrompt: "Degrees to rotate (e.g., 90 or 180)", },
         "add-page-numbers": { name: "Add Page Numbers", icon: "🔢", desc: "Add centered page numbers to the bottom of your PDF.", related:["merge-pdf", "split-pdf"], extraInputPrompt: "Starting page number (default is 1)" },
         "extract-images": { name: "Extract Images", icon: "📥", desc: "Extract all embedded pictures from your PDF into a ZIP.", related:["pdf-to-image", "compress-pdf"] },
         "reorder-pages": { name: "Reorder Pages", icon: "📑", desc: "Type the new page sequence separated by commas.", related:["split-pdf", "remove-pages"], extraInputPrompt: "New order (e.g. 3, 1, 2, 4)" },
-        "translate-pdf-en-hi": {name: "Translate PDF to Hindi", icon: "🇮🇳", desc: "Extracts text from your English PDF and translates it into Hindi.", related: ["pdf-to-word", "pdf-to-text"]},
-        "text-to-pdf": { name: "Text to PDF", icon: "📝", desc: "Convert plain text files (.txt) into PDF documents.", related: ["pdf-to-text", "pdf-to-word"] },
+        "translate-pdf": { name: "Translate PDF", icon: "🌍", desc: "Extracts text from your PDF and translates it into your chosen language.", related:["pdf-to-word", "pdf-to-text"], isTranslate: true }
       };
 
       const activeTool = "{{ tool_id }}";
@@ -646,6 +255,7 @@
       const overlay = document.getElementById("processingOverlay");
       const extraInputContainer = document.getElementById("extraInputContainer");
       const extraInput = document.getElementById("extraInput");
+      const langSelect = document.getElementById("langSelect");
 
       window.onload = () => {
         const tool = pdfToolConfig[activeTool];
@@ -656,10 +266,20 @@
         document.getElementById("toolBadgeIcon").innerText = tool.icon;
         document.getElementById("toolBadgeName").innerText = tool.name;
 
-        if (tool.extraInputPrompt) {
+        // Display correct extra input based on tool
+        if (tool.isTranslate) {
           extraInputContainer.classList.remove("hidden");
+          extraInput.classList.add("hidden");
+          langSelect.classList.remove("hidden");
+        } else if (tool.extraInputPrompt) {
+          extraInputContainer.classList.remove("hidden");
+          langSelect.classList.add("hidden");
+          extraInput.classList.remove("hidden");
           extraInput.placeholder = tool.extraInputPrompt;
           if (activeTool === "protect-pdf") extraInput.type = "password";
+          else extraInput.type = "text";
+        } else {
+          extraInputContainer.classList.add("hidden");
         }
 
         const dropText = document.getElementById("fileNameDisplay");
@@ -670,28 +290,28 @@
           if (activeTool === "image-to-pdf") {
             fileInput.setAttribute("accept", "image/*");
             dropText.innerText = "Drop 1 or more Images here";
-            subText.innerText = "Select JPG, PNG, WEBP • Max 50MB each";
+            subText.innerText = "Select JPG, PNG, WEBP • Max 100MB each";
           } else {
             fileInput.setAttribute("accept", "application/pdf");
             dropText.innerText = "Drop 2 or more PDFs here";
-            subText.innerText = "Select at least 2 PDFs • Max 50MB each";
+            subText.innerText = "Select at least 2 PDFs • Max 100MB each";
           }
         } else if (activeTool === "word-to-pdf") {
           fileInput.setAttribute("accept", ".doc,.docx");
           dropText.innerText = "Drop Word Document here";
-          subText.innerText = "Select DOC or DOCX • Max 50MB";
-        } else if (activeTool === "excel-to-pdf") {
-          fileInput.setAttribute("accept", ".xls,.xlsx");
-          dropText.innerText = "Drop Excel Spreadsheet here";
-          subText.innerText = "Select XLS or XLSX • Max 50MB";
-        } else if (activeTool === "ppt-to-pdf") {
-          fileInput.setAttribute("accept", ".ppt,.pptx");
-          dropText.innerText = "Drop PowerPoint here";
-          subText.innerText = "Select PPT or PPTX • Max 50MB";
+          subText.innerText = "Select DOC or DOCX • Max 100MB";
         } else if (activeTool === "text-to-pdf") {
           fileInput.setAttribute("accept", ".txt,text/plain");
           dropText.innerText = "Drop Text File here";
-          subText.innerText = "Select TXT • Max 50MB"; 
+          subText.innerText = "Select TXT • Max 100MB";
+        } else if (activeTool === "excel-to-pdf") {
+          fileInput.setAttribute("accept", ".xls,.xlsx");
+          dropText.innerText = "Drop Excel Spreadsheet here";
+          subText.innerText = "Select XLS or XLSX • Max 100MB";
+        } else if (activeTool === "ppt-to-pdf") {
+          fileInput.setAttribute("accept", ".ppt,.pptx");
+          dropText.innerText = "Drop PowerPoint here";
+          subText.innerText = "Select PPT or PPTX • Max 100MB";
         } else {
           fileInput.setAttribute("accept", "application/pdf");
           dropText.innerText = "Drop your PDF here";
@@ -705,7 +325,7 @@
             const r = pdfToolConfig[key];
             if (r) {
               grid.innerHTML += `
-                <a href="/pdf_Convertion?tool=${key}" class="p-3 sm:p-4 rounded-xl bg-slate-800/40 border border-slate-700 hover:border-indigo-500 transition flex items-center gap-3">
+                <a href="/pdf/${key}" class="p-3 sm:p-4 rounded-xl bg-slate-800/40 border border-slate-700 hover:border-indigo-500 transition flex items-center gap-3">
                 <span class="text-xl">${r.icon}</span>
                 <span class="text-xs sm:text-sm font-bold uppercase text-slate-300">${r.name}</span>
                 </a>`;
@@ -742,13 +362,22 @@
         if (activeTool === "merge-pdf" && selectedFiles.length < 2) {
           alert("Merge requires at least 2 PDF files. Please select more files."); return;
         }
-        if (!extraInputContainer.classList.contains("hidden") && extraInput.value.trim() === "") {
-          alert(extraInput.placeholder); extraInput.focus(); return;
+
+        let finalExtraParam = "";
+        if (pdfToolConfig[activeTool].isTranslate) {
+            finalExtraParam = document.getElementById("langSelect").value;
+        } else if (!extraInputContainer.classList.contains("hidden")) {
+            finalExtraParam = extraInput.value.trim();
+            if (finalExtraParam === "") {
+                alert(extraInput.placeholder);
+                extraInput.focus();
+                return;
+            }
         }
 
         const formData = new FormData();
         formData.append("tool", activeTool);
-        formData.append("extra_param", extraInput.value.trim());
+        formData.append("extra_param", finalExtraParam);
         selectedFiles.forEach((f) => formData.append("files", f));
 
         overlay.classList.remove("hidden");
@@ -779,15 +408,7 @@
         }
       };
     </script>
-
-    
-
-    <!-- Footer style -->
-    <script>
-      document.getElementById("year").textContent = new Date().getFullYear();
-    </script>
-
     <script src="/Static/base.js"></script>
-    <script src="/Static/navbar.js"></script>
+    <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
   </body>
 </html>

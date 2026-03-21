@@ -48,7 +48,7 @@ PDF_SEO = {
     "unlock-pdf": {"title": "Unlock PDF Password", "desc": "Remove passwords and security encryption from PDF files."},
     "remove-pages": {"title": "Remove Pages from PDF", "desc": "Delete unwanted pages from your PDF document."},
     "reorder-pages": {"title": "Reorder PDF Pages", "desc": "Rearrange and sort the pages in your PDF document."},
-    "translate-pdf-en-hi": {"title": "Translate PDF English to Hindi", "desc": "Instantly translate your English PDF documents into Hindi."},
+    "translate-pdf": {"title": "Translate PDF Documents", "desc": "Instantly translate your PDF documents into Hindi, Marathi, Bengali, Spanish, and more."},
     "text-to-pdf": {"title": "Convert Text to PDF", "desc": "Convert plain text TXT files into perfectly formatted PDF documents."},
 }
 
@@ -506,12 +506,11 @@ def reorder_pages_converter(input_path: str, page_order: str) -> str:
     doc.close()
     return output_path
 
-# --- TRANSLATE PDF (EN to HI) ---
-def translate_pdf_hi_converter(input_path: str) -> str:
+# --- TRANSLATE PDF ---
+def translate_pdf_converter(input_path: str, target_lang: str) -> str:
     from deep_translator import GoogleTranslator
     output_path = os.path.join(OUTPUT_DIR, f"translated_{uuid.uuid4()}.txt")
     
-    # 1. Extract text from PDF
     doc = fitz.open(input_path)
     full_text = ""
     for page in doc:
@@ -521,15 +520,14 @@ def translate_pdf_hi_converter(input_path: str) -> str:
     if not full_text.strip():
         raise Exception("No readable text found in this PDF.")
         
-    # 2. Translate in chunks (Google has a 5000 character limit per request)
-    translator = GoogleTranslator(source='en', target='hi')
+    # 'auto' automatically detects the language of the uploaded PDF!
+    translator = GoogleTranslator(source='auto', target=target_lang)
     chunks = [full_text[i:i+4000] for i in range(0, len(full_text), 4000)]
     
     translated_text = ""
     for chunk in chunks:
         translated_text += translator.translate(chunk) + "\n\n"
         
-    # 3. Save as a UTF-8 text file (so Hindi characters show up perfectly)
     with open(output_path, "w", encoding="utf-8") as f:
         f.write(translated_text)
         
@@ -667,9 +665,11 @@ async def convert_pdf(files: List[UploadFile] = File(...), tool: str = Form(...)
             output_path = reorder_pages_converter(input_path, extra_param)
             filename = "reordered.pdf"
 
-        elif tool == "translate-pdf-en-hi":
-            output_path = translate_pdf_hi_converter(input_path)
-            filename = "Translated_Hindi.txt"
+        elif tool == "translate-pdf":
+            # Extra param will hold the language code (e.g. 'hi', 'mr', 'es')
+            lang_code = extra_param if extra_param else "hi" 
+            output_path = translate_pdf_converter(input_path, lang_code)
+            filename = f"Translated_{lang_code.upper()}.txt"
 
         else:
             return JSONResponse(status_code=400, content={"error": f"Unsupported tool: {tool}"})
