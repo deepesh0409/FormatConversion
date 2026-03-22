@@ -110,18 +110,18 @@ async def delete_file_delayed(path: str, delay_seconds: int = 300):
         pass
 
 # --- BASE ROUTES (Defaults if no tool is selected) ---
-@app.get("/pdf_Convertion", response_class=HTMLResponse)
+@app.get("/pdf_Conversion", response_class=HTMLResponse)
 async def pdf_convert_base(request: Request):
-    return templates.TemplateResponse("PDF_Convert.html", {
+    return templates.TemplateResponse("PDF_Conversion.html", {
         "request": request, 
         "tool_id": "pdf-to-word",
         "seo_title": "PDF Tools",
         "seo_desc": "Convert, edit, and compress PDF files easily."
     })
 
-@app.get("/Image_Convertion", response_class=HTMLResponse)
+@app.get("/Image_Conversion", response_class=HTMLResponse)
 async def image_convert_base(request: Request):
-    return templates.TemplateResponse("Image_Convert.html", {
+    return templates.TemplateResponse("Image_Conversion.html", {
         "request": request, 
         "tool_id": "jpg-to-png",
         "seo_title": "Image Tools",
@@ -133,7 +133,7 @@ async def image_convert_base(request: Request):
 @app.get("/pdf/{tool_id}", response_class=HTMLResponse)
 async def pdf_tool_page(request: Request, tool_id: str):
     seo_data = PDF_SEO.get(tool_id, {"title": "PDF Tools", "desc": "Professional PDF editing tools."})
-    return templates.TemplateResponse("PDF_Convert.html", {
+    return templates.TemplateResponse("PDF_Conversion.html", {
         "request": request, 
         "tool_id": tool_id, 
         "seo_title": seo_data["title"], 
@@ -144,7 +144,7 @@ async def pdf_tool_page(request: Request, tool_id: str):
 @app.get("/image/{tool_id}", response_class=HTMLResponse)
 async def image_tool_page(request: Request, tool_id: str):
     seo_data = IMAGE_SEO.get(tool_id, {"title": "Image Tools", "desc": "Professional image editing tools."})
-    return templates.TemplateResponse("Image_Convert.html", {
+    return templates.TemplateResponse("Image_Conversion.html", {
         "request": request, 
         "tool_id": tool_id, 
         "seo_title": seo_data["title"], 
@@ -155,7 +155,7 @@ async def image_tool_page(request: Request, tool_id: str):
 # --- SYSTEM FILES ---
 @app.get("/robots.txt")
 async def get_robots_txt():
-    content = """Sitemap: https://formatconvertion-production.up.railway.app/sitemap.xml
+    content = """Sitemap: https://formatconversion-production.up.railway.app/sitemap.xml
 
 User-agent: *
 Allow: /
@@ -173,14 +173,14 @@ Disallow: /Static/"""
 async def get_sitemap_xml():
     content = """<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://formatconvertion-production.up.railway.app/</loc><priority>1.0</priority></url>
-  <url><loc>https://formatconvertion-production.up.railway.app/pdf_Convertion</loc><priority>0.9</priority></url>
-  <url><loc>https://formatconvertion-production.up.railway.app/Image_Convertion</loc><priority>0.9</priority></url>
-  <url><loc>https://formatconvertion-production.up.railway.app/about</loc><priority>0.8</priority></url>
-  <url><loc>https://formatconvertion-production.up.railway.app/privacy</loc><priority>0.5</priority></url>
-  <url><loc>https://formatconvertion-production.up.railway.app/terms</loc><priority>0.5</priority></url>
-  <url><loc>https://formatconvertion-production.up.railway.app/help</loc><priority>0.7</priority></url>
-  <url><loc>https://formatconvertion-production.up.railway.app/contact</loc><priority>0.7</priority></url>
+  <url><loc>https://formatconversion-production.up.railway.app/</loc><priority>1.0</priority></url>
+  <url><loc>https://formatconversion-production.up.railway.app/pdf_Conversion</loc><priority>0.9</priority></url>
+  <url><loc>https://formatconversion-production.up.railway.app/Image_Conversion</loc><priority>0.9</priority></url>
+  <url><loc>https://formatconversion-production.up.railway.app/about</loc><priority>0.8</priority></url>
+  <url><loc>https://formatconversion-production.up.railway.app/privacy</loc><priority>0.5</priority></url>
+  <url><loc>https://formatconversion-production.up.railway.app/terms</loc><priority>0.5</priority></url>
+  <url><loc>https://formatconversion-production.up.railway.app/help</loc><priority>0.7</priority></url>
+  <url><loc>https://formatconversion    -production.up.railway.app/contact</loc><priority>0.7</priority></url>
 </urlset>"""
     return Response(content=content, media_type="application/xml")
 

@@ -1,6 +1,16 @@
 <!doctype html>
 <html lang="en">
   <head>
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XDWTKF4TJE"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-XDWTKF4TJE');
+    </script>
+
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{{ seo_title }} – FormatConverter</title>
@@ -30,8 +40,8 @@
           <!-- Center: Navigation Links -->
           <div class="hidden md:flex absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 items-center space-x-8">
             <a href="/" class="text-slate-300 hover:text-white transition text-sm font-medium">Home</a>
-            <a href="/pdf_Convertion" class="text-slate-300 hover:text-white transition text-sm font-medium">PDF Tools</a>
-            <a href="/Image_Convertion" class="text-slate-300 hover:text-white transition text-sm font-medium">Image Tools</a>
+            <a href="/pdf_Conversion" class="text-slate-300 hover:text-white transition text-sm font-medium">PDF Tools</a>
+            <a href="/Image_Conversion" class="text-slate-300 hover:text-white transition text-sm font-medium">Image Tools</a>
             <a href="/about" class="text-slate-300 hover:text-white transition text-sm font-medium">About</a>
           </div>
 
@@ -56,8 +66,8 @@
       <div id="mobile-menu" class="hidden md:hidden absolute left-0 top-full w-full bg-slate-900 border-b border-slate-700 shadow-2xl">
         <div class="px-4 pt-4 pb-4 space-y-2">
           <a href="/" class="text-slate-300 hover:text-white hover:bg-slate-800 block px-4 py-3 rounded-xl text-base font-medium transition">Home</a>
-          <a href="/pdf_Convertion" class="text-slate-300 hover:text-white hover:bg-slate-800 block px-4 py-3 rounded-xl text-base font-medium transition">PDF Tools</a>
-          <a href="/Image_Convertion" class="text-slate-300 hover:text-white hover:bg-slate-800 block px-4 py-3 rounded-xl text-base font-medium transition">Image Tools</a>
+          <a href="/pdf_Conversion" class="text-slate-300 hover:text-white hover:bg-slate-800 block px-4 py-3 rounded-xl text-base font-medium transition">PDF Tools</a>
+          <a href="/Image_Conversion" class="text-slate-300 hover:text-white hover:bg-slate-800 block px-4 py-3 rounded-xl text-base font-medium transition">Image Tools</a>
           <a href="/about" class="text-slate-300 hover:text-white hover:bg-slate-800 block px-4 py-3 rounded-xl text-base font-medium transition">About</a>
         </div>
         <div class="pt-4 pb-6 border-t border-slate-700 px-5 space-y-3">
@@ -414,6 +424,7 @@
       };
     </script>
     <script src="/Static/base.js"></script>
+    <script src="/Static/navbar.js"></script>
     <script>document.getElementById("year").textContent = new Date().getFullYear();</script>
   </body>
 </html>
