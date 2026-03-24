@@ -1,5 +1,5 @@
 from fastapi import FastAPI, UploadFile, File, Form, Query, Request, BackgroundTasks
-from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response, RedirectResponse
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from typing import List, Optional
@@ -50,7 +50,7 @@ PDF_SEO = {
     "reorder-pages": {"title": "Reorder PDF Pages", "desc": "Rearrange and sort the pages in your PDF document."},
     "translate-pdf": {"title": "Translate PDF Documents", "desc": "Instantly translate your PDF documents into Hindi, Marathi, Bengali, Spanish, and more."},
     "text-to-pdf": {"title": "Convert Text to PDF", "desc": "Convert plain text TXT files into perfectly formatted PDF documents."},
-    "esign-pdf": {"title": "E-Sign PDF Online", "desc": "Add your signature image to a PDF document instantly and securely."},
+    "add-page-numbers": {"title": "Add Page Numbers", "desc": "Add centered page numbers to the bottom of your PDF."},
 }
 
 IMAGE_SEO = {
@@ -69,7 +69,7 @@ IMAGE_SEO = {
     "watermark": {"title": "Add Watermark to Image", "desc": "Protect your photos by stamping custom text over them."},
     "wm-remover": {"title": "Remove Watermark from Image", "desc": "Use AI inpainting to clean unwanted marks and text from pictures."},
     "extract-text": {"title": "Extract Text from Image (OCR)", "desc": "Read and copy text from screenshots and photos automatically."},
-    "grayscale-pdf": {"title": "Convert PDF to Black and White (Grayscale)", "desc": "Convert color PDFs to black and white (grayscale) for official document uploads."},
+    "passport-photo": {"title": "Passport Photo Maker", "desc": "Upload a photo. We will remove the background, apply a studio color, and crop it to passport size."},
 }
 
 # ------------------ PAGES ------------------
@@ -100,6 +100,16 @@ async def help_page(request: Request):
 @app.get("/api-docs", response_class=HTMLResponse)
 async def api_page(request: Request):
     return templates.TemplateResponse(request=request, name="api.html")
+
+# Function to delay deletion
+async def delete_file_delayed(path: str, delay_seconds: int = 300):
+    """Wait before deleting to allow download managers to grab all file chunks"""
+    await asyncio.sleep(delay_seconds)
+    try:
+        if os.path.exists(path):
+            os.remove(path)
+    except Exception:
+        pass
 
 # --- BASE ROUTES (Defaults if no tool is selected) ---
 @app.get("/pdf_Conversion", response_class=HTMLResponse)
@@ -153,8 +163,7 @@ async def image_tool_page(request: Request, tool_id: str):
         }
     )
 
-
-# --- SYSTEM FILES ---
+# --- SYSTEM FILES (Hardcoded to prevent 404s!) ---
 @app.get("/robots.txt")
 async def get_robots_txt():
     content = """Sitemap: https://formatconvertion-production.up.railway.app/sitemap.xml
@@ -182,6 +191,7 @@ async def get_sitemap_xml():
   <url><loc>https://formatconvertion-production.up.railway.app/terms</loc><priority>0.5</priority></url>
   <url><loc>https://formatconvertion-production.up.railway.app/help</loc><priority>0.7</priority></url>
   <url><loc>https://formatconvertion-production.up.railway.app/contact</loc><priority>0.7</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/api-docs</loc><priority>0.8</priority></url>
 </urlset>"""
     return Response(content=content, media_type="application/xml")
 
