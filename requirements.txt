@@ -11,7 +11,7 @@ Pillow
 jinja2
 deep-translator
 fpdf
-rembg
+rembg[cpu]
 opencv-python-headless
 numpy
 pillow-heif
