@@ -75,85 +75,83 @@ IMAGE_SEO = {
 # ------------------ PAGES ------------------
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    return templates.TemplateResponse("Home.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="Home.html")
 
 @app.get("/about", response_class=HTMLResponse)
 async def about_page(request: Request):
-    return templates.TemplateResponse("about.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="about.html")
 
 @app.get("/privacy", response_class=HTMLResponse)
 async def privacy_page(request: Request):
-    return templates.TemplateResponse("privacy.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="privacy.html")
 
 @app.get("/terms", response_class=HTMLResponse)
 async def terms_page(request: Request):
-    return templates.TemplateResponse("terms.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="terms.html")
 
 @app.get("/contact", response_class=HTMLResponse)
 async def contact_page(request: Request):
-    return templates.TemplateResponse("contact.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="contact.html")
 
 @app.get("/help", response_class=HTMLResponse)
 async def help_page(request: Request):
-    return templates.TemplateResponse("help.html", {"request": request})
+    return templates.TemplateResponse(request=request, name="help.html")
 
 @app.get("/api-docs", response_class=HTMLResponse)
 async def api_page(request: Request):
-    return templates.TemplateResponse("api.html", {"request": request})
-
-# Function to delay deletion
-async def delete_file_delayed(path: str, delay_seconds: int = 300):
-    """Wait before deleting to allow download managers to grab all file chunks"""
-    await asyncio.sleep(delay_seconds)
-    try:
-        if os.path.exists(path):
-            os.remove(path)
-    except Exception:
-        pass
+    return templates.TemplateResponse(request=request, name="api.html")
 
 # --- BASE ROUTES (Defaults if no tool is selected) ---
 @app.get("/pdf_Conversion", response_class=HTMLResponse)
 async def pdf_convert_base(request: Request):
-    return templates.TemplateResponse("PDF_Conversion.html", {
-        "request": request, 
-        "tool_id": "pdf-to-word",
-        "seo_title": "PDF Tools",
-        "seo_desc": "Convert, edit, and compress PDF files easily."
-    })
+    return templates.TemplateResponse(
+        request=request, 
+        name="PDF_Conversion.html", 
+        context={
+            "tool_id": "pdf-to-word",
+            "seo_title": "PDF Tools",
+            "seo_desc": "Convert, edit, and compress PDF files easily."
+        }
+    )
 
 @app.get("/Image_Conversion", response_class=HTMLResponse)
 async def image_convert_base(request: Request):
-    return templates.TemplateResponse("Image_Conversion.html", {
-        "request": request, 
-        "tool_id": "jpg-to-png",
-        "seo_title": "Image Tools",
-        "seo_desc": "Convert, resize, and edit images using AI."
-    })
+    return templates.TemplateResponse(
+        request=request, 
+        name="Image_Conversion.html", 
+        context={
+            "tool_id": "jpg-to-png",
+            "seo_title": "Image Tools",
+            "seo_desc": "Convert, resize, and edit images using AI."
+        }
+    )
 
 # --- DYNAMIC SEO ROUTES (Clean URLs for each tool) ---
-# 1. PDF Tools Route
 @app.get("/pdf/{tool_id}", response_class=HTMLResponse)
 async def pdf_tool_page(request: Request, tool_id: str):
     seo_data = PDF_SEO.get(tool_id, {"title": "PDF Tools", "desc": "Professional PDF editing tools."})
-    return templates.TemplateResponse("PDF_Conversion.html", {
-        "request": request, 
-        "tool_id": tool_id, 
-        "seo_title": seo_data["title"], 
-        "seo_desc": seo_data["desc"]
-    })
+    return templates.TemplateResponse(
+        request=request, 
+        name="PDF_Conversion.html", 
+        context={
+            "tool_id": tool_id, 
+            "seo_title": seo_data["title"], 
+            "seo_desc": seo_data["desc"]
+        }
+    )
 
-# 2. Image Tools Route
 @app.get("/image/{tool_id}", response_class=HTMLResponse)
 async def image_tool_page(request: Request, tool_id: str):
     seo_data = IMAGE_SEO.get(tool_id, {"title": "Image Tools", "desc": "Professional image editing tools."})
-    return templates.TemplateResponse("Image_Conversion.html", {
-        "request": request, 
-        "tool_id": tool_id, 
-        "seo_title": seo_data["title"], 
-        "seo_desc": seo_data["desc"]
-    })
-
-
+    return templates.TemplateResponse(
+        request=request, 
+        name="Image_Conversion.html", 
+        context={
+            "tool_id": tool_id, 
+            "seo_title": seo_data["title"], 
+            "seo_desc": seo_data["desc"]
+        }
+    )
 # --- SYSTEM FILES ---
 @app.get("/robots.txt")
 async def get_robots_txt():
