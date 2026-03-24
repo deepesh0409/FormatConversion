@@ -1,11 +1,16 @@
 from fastapi import APIRouter, UploadFile, File, Form
 from fastapi.responses import StreamingResponse, JSONResponse
 from typing import Optional
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, ImageEnhance
 import io
 import os
 import numpy as np
+
+# --- AI & Image Libraries (ALL IMPORTS MUST STAY AT THE TOP!) ---
 import pillow_heif 
+import cv2
+import pytesseract
+from rembg import remove  
 
 # Teach Pillow how to read Apple iPhone HEIC files!
 pillow_heif.register_heif_opener()
@@ -62,17 +67,18 @@ async def image_process(
 
         # 4. Remove Background
         elif tool == "bg-remove":
-            from rembg import remove
             img_bytes = io.BytesIO()
             img.save(img_bytes, format='PNG')
+            
+            # Run the AI background removal
             output_bytes = remove(img_bytes.getvalue())
+            
             output = io.BytesIO(output_bytes)
             filename = f"{original_name}_nobg.png"
             media_type = "image/png"
 
         # 5. Blur Face
         elif tool == "blur-face":
-            import cv2
             open_cv_image = np.array(img.convert('RGB'))
             open_cv_image = open_cv_image[:, :, ::-1].copy() 
 
@@ -96,9 +102,10 @@ async def image_process(
             new_width = int(img.width * 2)
             new_height = int(img.height * 2)
             img = img.resize((new_width, new_height), Image.Resampling.LANCZOS)
-            from PIL import ImageEnhance
+            
             enhancer = ImageEnhance.Sharpness(img)
             img = enhancer.enhance(1.5)
+            
             img.save(output, format="PNG")
             filename = f"{original_name}_upscaled.png"
             media_type = "image/png"
@@ -132,7 +139,6 @@ async def image_process(
 
         # 8. Auto Watermark Remover
         elif tool == "wm-remover":
-            import cv2
             open_cv_image = np.array(img.convert('RGB'))
             open_cv_image = open_cv_image[:, :, ::-1].copy()
             
@@ -222,17 +228,17 @@ async def image_process(
 
         # 12. Extract Text from Image (OCR)
         elif tool == "extract-text":
-            import pytesseract
             
-            # Make sure this path matches where Tesseract is installed on your PC!
-            pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
+            # --- OS CHECK FOR RAILWAY/LINUX ---
+            if os.name == 'nt':
+                pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'
             
             img_gray = img.convert('L')
             
             try:
                 extracted_text = pytesseract.image_to_string(img_gray)
             except Exception as e:
-                raise Exception("Tesseract OCR not found. Please install Tesseract on your computer first!")
+                raise Exception("Tesseract OCR not found. Please ensure Tesseract is installed.")
 
             if not extracted_text.strip():
                 extracted_text = "No text could be found in this image. Try an image with clearer, larger text."
@@ -240,6 +246,56 @@ async def image_process(
             output = io.BytesIO(extracted_text.encode('utf-8'))
             filename = f"{original_name}_extracted.txt"
             media_type = "text/plain"
+
+        # 13. Passport Photo Maker (NEW)
+        elif tool == "passport-photo":
+            
+            # 1. Remove the background using AI
+            img_bytes = io.BytesIO()
+            img.save(img_bytes, format='PNG')
+            
+            # The remove() function relies on the import at the top of the file!
+            nobg_bytes = remove(img_bytes.getvalue())
+            fg = Image.open(io.BytesIO(nobg_bytes)).convert("RGBA")
+            
+            # 2. Read the background color from user input
+            bg_color = (255, 255, 255) # Default to White
+            if extra_param and "blue" in extra_param.lower():
+                bg_color = (51, 153, 255) # Professional Studio Blue
+            elif extra_param and "red" in extra_param.lower():
+                bg_color = (255, 0, 0)
+                
+            # 3. Create solid background and paste the person onto it
+            bg = Image.new("RGB", fg.size, bg_color)
+            bg.paste(fg, mask=fg)
+            
+            # 4. Calculate standard Passport Ratio (3.5cm x 4.5cm = 0.777 aspect ratio)
+            target_ratio = 3.5 / 4.5
+            img_ratio = bg.width / bg.height
+            
+            if img_ratio > target_ratio:
+                # Image is too wide, crop the sides
+                new_width = int(target_ratio * bg.height)
+                left = (bg.width - new_width) // 2
+                top = 0
+                right = left + new_width
+                bottom = bg.height
+            else:
+                # Image is too tall, crop top and bottom
+                new_height = int(bg.width / target_ratio)
+                left = 0
+                top = (bg.height - new_height) // 2
+                right = bg.width
+                bottom = top + new_height
+                
+            bg = bg.crop((left, top, right, bottom))
+            
+            # 5. Resize to a crisp digital passport size (350x450 pixels)
+            bg = bg.resize((350, 450), Image.Resampling.LANCZOS)
+            
+            bg.save(output, format="JPEG", quality=95)
+            filename = f"{original_name}_passport.jpg"
+            media_type = "image/jpeg"
 
         else:
             return JSONResponse(status_code=400, content={"error": f"Unsupported tool: {tool}"})

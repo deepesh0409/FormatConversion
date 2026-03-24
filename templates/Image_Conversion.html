@@ -295,6 +295,7 @@
               Extract readable text from screenshots and photos.
             </p>
           </a>
+
           <a
             href="/image/jpg-to-png"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
@@ -307,6 +308,14 @@
               Convert JPG images to PNG format with high accuracy.
             </p>
           </a>
+
+          <!-- NEW: Passport Photo Maker -->
+          <a href="/image/passport-photo" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all">
+            <div class="text-3xl mb-4">👔</div>
+            <h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Passport Photo Maker</h3>
+            <p class="text-slate-400 text-sm">Upload a selfie. Auto-remove background, add formal color, and crop to 3.5x4.5cm.</p>
+          </a>
+
           <a
             href="/image/png-to-jpg"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
@@ -319,6 +328,7 @@
               Convert PNG images to JPG format smoothly.
             </p>
           </a>
+
           <a
             href="/image/resize"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
@@ -331,6 +341,7 @@
               Define exact dimensions by keeping the aspect ratio.
             </p>
           </a>
+
           <a
             href="/image/crop"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
@@ -343,6 +354,7 @@
               Crop to perfect square (1:1) or standard ratios.
             </p>
           </a>
+
           <a
             href="/image/upscale"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
@@ -355,6 +367,7 @@
               Increase image resolution and clarity using neural networks.
             </p>
           </a>
+
           <a
             href="/image/bg-remove"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
@@ -367,6 +380,7 @@
               Remove backgrounds from images instantly using AI edge detection.
             </p>
           </a>
+
           <a
             href="/image/to-webp"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
@@ -379,6 +393,7 @@
               Convert JPG or PNG to WebP for faster website loading.
             </p>
           </a>
+
           <a
             href="/image/heic-to-jpg"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
@@ -391,6 +406,7 @@
               Convert Apple iPhone photos (HEIC) into standard JPGs.
             </p>
           </a>
+
           <a
             href="/image/blur-face"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
@@ -403,6 +419,7 @@
               Protect privacy with automatic face blurring.
             </p>
           </a>
+
           <a
             href="/image/watermark"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
@@ -415,6 +432,7 @@
               Stamp custom text over your images to protect them.
             </p>
           </a>
+
           <a
             href="/image/wm-remover"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
@@ -427,6 +445,7 @@
               AI-powered inpainting to erase unwanted watermarks.
             </p>
           </a>
+
           <a
             href="/image/compress-exact"
             class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition-all"
@@ -814,7 +833,14 @@
         "compress-exact": { name: "Compress to Target Size", icon: "🗜️", desc: "Enter a maximum file size (in KB). Perfect for govt portals and job applications.", related:["compress", "resize", "jpg-to-png"], extraInputPrompt: "Max size in KB (e.g., 50)" },
         "heic-to-jpg": { name: "HEIC to JPG", icon: "📱", desc: "Convert iPhone HEIC photos to standard JPG format.", related: ["png-to-jpg", "compress", "resize"] },
         "to-webp": { name: "Convert to WebP", icon: "🕸️", desc: "Convert your image to the next-gen WebP format for faster website loading.", related:["compress", "resize", "jpg-to-png"] },
-        "extract-text": { name: "Extract Text (OCR)", icon: "📝", desc: "Extract readable text from your image and download it as a text file.", related:["compress", "resize", "jpg-to-png"] }
+        "extract-text": { name: "Extract Text (OCR)", icon: "📝", desc: "Extract readable text from your image and download it as a text file.", related:["compress", "resize", "jpg-to-png"] },
+        "passport-photo": {
+          name: "Passport Photo Maker",
+          icon: "👔",
+          desc: "Upload a photo. We will remove the background, apply a studio color, and crop it to passport size.",
+          related:["compress-exact", "bg-remove", "upscale"],
+          extraInputPrompt: "Background Color? (Type 'white' or 'blue')"
+        },
       };
 
       const dropZone = document.getElementById("dropZone");
@@ -943,9 +969,14 @@
 
           // Set correct extension
           let newExt = "png";
-          if (tool === "png-to-jpg" || tool === "compress" || tool === "compress-exact" || tool === "heic-to-jpg") newExt = "jpg";
-          if (tool === "to-webp") newExt = "webp";
-          if (tool === "extract-text") newExt = "txt";
+          if (
+            tool === "png-to-jpg" ||
+            tool === "compress" ||
+            tool === "compress-exact" ||
+            tool === "heic-to-jpg" ||
+            tool === "passport-photo" // <--- ADDED HERE
+          )
+            newExt = "jpg";
 
           triggerDownload(url, `converted_${baseName}.${newExt}`);
         } catch (err) {

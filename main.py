@@ -1,5 +1,5 @@
 from fastapi import FastAPI, UploadFile, File, Form, Query, Request, BackgroundTasks
-from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response
+from fastapi.responses import FileResponse, HTMLResponse, JSONResponse, Response, RedirectResponse
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from typing import List, Optional
@@ -50,6 +50,7 @@ PDF_SEO = {
     "reorder-pages": {"title": "Reorder PDF Pages", "desc": "Rearrange and sort the pages in your PDF document."},
     "translate-pdf": {"title": "Translate PDF Documents", "desc": "Instantly translate your PDF documents into Hindi, Marathi, Bengali, Spanish, and more."},
     "text-to-pdf": {"title": "Convert Text to PDF", "desc": "Convert plain text TXT files into perfectly formatted PDF documents."},
+    "esign-pdf": {"title": "E-Sign PDF Online", "desc": "Add your signature image to a PDF document instantly and securely."},
 }
 
 IMAGE_SEO = {
@@ -68,6 +69,7 @@ IMAGE_SEO = {
     "watermark": {"title": "Add Watermark to Image", "desc": "Protect your photos by stamping custom text over them."},
     "wm-remover": {"title": "Remove Watermark from Image", "desc": "Use AI inpainting to clean unwanted marks and text from pictures."},
     "extract-text": {"title": "Extract Text from Image (OCR)", "desc": "Read and copy text from screenshots and photos automatically."},
+    "grayscale-pdf": {"title": "Convert PDF to Black and White (Grayscale)", "desc": "Convert color PDFs to black and white (grayscale) for official document uploads."},
 }
 
 # ------------------ PAGES ------------------
@@ -155,34 +157,17 @@ async def image_tool_page(request: Request, tool_id: str):
 # --- SYSTEM FILES ---
 @app.get("/robots.txt")
 async def get_robots_txt():
-    content = """Sitemap: https://formatconversion-production.up.railway.app/sitemap.xml
-
-User-agent: *
-Allow: /
-
-# Block bots from crawling our private backend endpoints
-Disallow: /api/
-Disallow: /image-process
-Disallow: /uploads/
-Disallow: /output/
-Disallow: /Static/"""
-    return Response(content=content, media_type="text/plain")
+    return FileResponse("robots.txt", media_type="text/plain")
 
 
 @app.get("/sitemap.xml")
 async def get_sitemap_xml():
-    content = """<?xml version="1.0" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://formatconversion-production.up.railway.app/</loc><priority>1.0</priority></url>
-  <url><loc>https://formatconversion-production.up.railway.app/pdf_Conversion</loc><priority>0.9</priority></url>
-  <url><loc>https://formatconversion-production.up.railway.app/Image_Conversion</loc><priority>0.9</priority></url>
-  <url><loc>https://formatconversion-production.up.railway.app/about</loc><priority>0.8</priority></url>
-  <url><loc>https://formatconversion-production.up.railway.app/privacy</loc><priority>0.5</priority></url>
-  <url><loc>https://formatconversion-production.up.railway.app/terms</loc><priority>0.5</priority></url>
-  <url><loc>https://formatconversion-production.up.railway.app/help</loc><priority>0.7</priority></url>
-  <url><loc>https://formatconversion    -production.up.railway.app/contact</loc><priority>0.7</priority></url>
-</urlset>"""
-    return Response(content=content, media_type="application/xml")
+    return FileResponse("sitemap.xml", media_type="application/xml")
+
+# Optional convenience redirect for /sitemap
+@app.get("/sitemap")
+async def sitemap_redirect():
+    return RedirectResponse(url="/sitemap.xml")
 
 
 # ------------------ PDF CONVERSION FUNCTIONS ------------------
@@ -572,6 +557,70 @@ def text_to_pdf_converter(input_path: str) -> str:
     pdf.output(output_path)
     return output_path
 
+# --- GRAYSCALE PDF (Black & White) ---
+def grayscale_pdf_converter(input_path: str) -> str:
+    """Converts a PDF to Black & White (Grayscale) like a photocopy"""
+    output_path = os.path.join(OUTPUT_DIR, f"grayscale_{uuid.uuid4()}.pdf")
+    
+    doc = fitz.open(input_path)
+    out_pdf = fitz.open()
+    
+    for page_num in range(len(doc)):
+        page = doc.load_page(page_num)
+        
+        # 1. Render the page as a pure Grayscale image (this naturally compresses it)
+        pix = page.get_pixmap(colorspace=fitz.csGRAY, dpi=150)
+        
+        # 2. Get the raw image bytes safely (No 'quality' keyword used here!)
+        img_bytes = pix.tobytes("jpeg")
+        
+        # 3. Create a temporary PDF page from that image
+        img_pdf_bytes = fitz.open("jpeg", img_bytes).convert_to_pdf()
+        img_pdf = fitz.open("pdf", img_pdf_bytes)
+        
+        # 4. Insert the new grayscale page into our final document
+        out_pdf.insert_pdf(img_pdf)
+        img_pdf.close()
+        
+    # 5. Save the final document with maximum garbage collection & deflation
+    out_pdf.save(output_path, garbage=3, deflate=True)
+    out_pdf.close()
+    doc.close()
+    
+    return output_path
+
+# --- E-SIGN PDF ---
+def esign_pdf_converter(pdf_path: str, sign_path: str) -> str:
+    """Stamps an image signature onto the bottom right of the last page"""
+    output_path = os.path.join(OUTPUT_DIR, f"signed_{uuid.uuid4()}.pdf")
+    doc = fitz.open(pdf_path)
+    page = doc[-1] # Put the signature on the very last page
+    
+    # Open the signature image to get its aspect ratio
+    sign_img = Image.open(sign_path)
+    img_w, img_h = sign_img.size
+    
+    # Target width for the signature on the PDF (in points)
+    target_w = 150
+    ratio = target_w / img_w
+    target_h = img_h * ratio
+    
+    # Position: Bottom Right corner with a 50-point margin
+    margin = 50
+    x1 = page.rect.width - target_w - margin
+    y1 = page.rect.height - target_h - margin
+    x2 = page.rect.width - margin
+    y2 = page.rect.height - margin
+    
+    rect = fitz.Rect(x1, y1, x2, y2)
+    
+    # Insert the signature!
+    page.insert_image(rect, filename=sign_path)
+    
+    doc.save(output_path)
+    doc.close()
+    return output_path
+
 # ------------------ PDF CONVERSION API ------------------
 @app.post("/api/pdf/convert")
 async def convert_pdf(files: List[UploadFile] = File(...), tool: str = Form(...), extra_param: Optional[str] = Form("")):
@@ -690,6 +739,25 @@ async def convert_pdf(files: List[UploadFile] = File(...), tool: str = Form(...)
             lang_code = extra_param if extra_param else "hi" 
             output_path = translate_pdf_converter(input_path, lang_code)
             filename = f"Translated_{lang_code.upper()}.txt"
+
+        elif tool == "grayscale-pdf":
+            output_path = grayscale_pdf_converter(input_path)
+            filename = "black_and_white.pdf"
+
+        # --- NEW E-SIGN TOOL ---
+        elif tool == "esign-pdf":
+            if len(input_paths) != 2:
+                return JSONResponse(status_code=400, content={"error": "Please upload exactly 1 PDF and 1 Signature Image."})
+            
+            # Figure out which file is the PDF and which is the Image
+            pdf_file = next((f for f in input_paths if f.lower().endswith('.pdf')), None)
+            sign_file = next((f for f in input_paths if not f.lower().endswith('.pdf')), None)
+            
+            if not pdf_file or not sign_file:
+                return JSONResponse(status_code=400, content={"error": "Invalid files. Please upload exactly 1 PDF and 1 Image."})
+                
+            output_path = esign_pdf_converter(pdf_file, sign_file)
+            filename = "signed_document.pdf"
 
         else:
             return JSONResponse(status_code=400, content={"error": f"Unsupported tool: {tool}"})

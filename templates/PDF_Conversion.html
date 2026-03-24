@@ -171,6 +171,8 @@
           <a href="/pdf/remove-pages" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🗑️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Remove Pages</h3><p class="text-slate-400 text-sm">Delete unwanted pages from your PDF.</p></a>
           <a href="/pdf/rotate-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🔄</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Rotate PDF</h3><p class="text-slate-400 text-sm">Rotate all pages by 90, 180, or 270 degrees.</p></a>
           <a href="/pdf/add-page-numbers" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🔢</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Add Page Numbers</h3><p class="text-slate-400 text-sm">Add pagination to the bottom of each page.</p></a>
+          <a href="/pdf/grayscale-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">🖨️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">Grayscale PDF</h3><p class="text-slate-400 text-sm">Make your PDF black and white like a Xerox photocopy.</p></a>
+          <a href="/pdf/esign-pdf" class="group bg-slate-800/60 rounded-2xl p-6 border border-slate-700 hover:border-indigo-500 transition"><div class="text-3xl mb-4">✍️</div><h3 class="text-lg font-semibold mb-2 group-hover:text-indigo-400">E-Sign PDF</h3><p class="text-slate-400 text-sm">Add your signature to the bottom of a PDF document.</p></a>
         </div>
       </section>
     </main>
@@ -253,11 +255,13 @@
         "add-page-numbers": { name: "Add Page Numbers", icon: "🔢", desc: "Add centered page numbers to the bottom of your PDF.", related:["merge-pdf", "split-pdf"], extraInputPrompt: "Starting page number (default is 1)" },
         "extract-images": { name: "Extract Images", icon: "📥", desc: "Extract all embedded pictures from your PDF into a ZIP.", related:["pdf-to-image", "compress-pdf"] },
         "reorder-pages": { name: "Reorder Pages", icon: "📑", desc: "Type the new page sequence separated by commas.", related:["split-pdf", "remove-pages"], extraInputPrompt: "New order (e.g. 3, 1, 2, 4)" },
-        "translate-pdf": { name: "Translate PDF", icon: "🌍", desc: "Extracts text from your PDF and translates it into your chosen language.", related:["pdf-to-word", "pdf-to-text"], isTranslate: true }
+        "translate-pdf": { name: "Translate PDF", icon: "🌍", desc: "Extracts text from your PDF and translates it into your chosen language.", related:["pdf-to-word", "pdf-to-text"], isTranslate: true },
+        "grayscale-pdf": { name: "Grayscale PDF", icon: "🖨️", desc: "Make your document black and white (like a photocopy) for official web portals.", related:["compress-pdf", "pdf-to-image"] },
+        "esign-pdf": { name: "E-Sign PDF", icon: "✍️", desc: "Upload a PDF and a picture of your signature to officially sign your document.", related:["pdf-to-word", "compress-pdf"] },
       };
 
       const activeTool = "{{ tool_id }}";
-      const isMultipleFilesTool = activeTool === "merge-pdf" || activeTool === "image-to-pdf";
+      const isMultipleFilesTool = activeTool === "merge-pdf" || activeTool === "image-to-pdf" || activeTool === "esign-pdf";
 
       const fileInput = document.getElementById("fileInput");
       const dropZone = document.getElementById("dropZone");
@@ -301,6 +305,10 @@
             fileInput.setAttribute("accept", "image/*");
             dropText.innerText = "Drop 1 or more Images here";
             subText.innerText = "Select JPG, PNG, WEBP • Max 100MB each";
+          } else if (activeTool === "esign-pdf") {
+            fileInput.setAttribute("accept", ".pdf,image/*");
+            dropText.innerText = "Drop 1 PDF & 1 Signature Image";
+            subText.innerText = "Hold CTRL to select both files • Max 100MB";
           } else {
             fileInput.setAttribute("accept", "application/pdf");
             dropText.innerText = "Drop 2 or more PDFs here";
@@ -322,6 +330,11 @@
           fileInput.setAttribute("accept", ".ppt,.pptx");
           dropText.innerText = "Drop PowerPoint here";
           subText.innerText = "Select PPT or PPTX • Max 100MB";
+        } else if (activeTool === "esign-pdf") {
+          fileInput.setAttribute("multiple", "true");
+          fileInput.setAttribute("accept", ".pdf,image/*");
+          dropText.innerText = "Drop 1 PDF & 1 Image here";
+          subText.innerText = "Select exactly 2 files (PDF + Signature Image)"; 
         } else {
           fileInput.setAttribute("accept", "application/pdf");
           dropText.innerText = "Drop your PDF here";
@@ -368,13 +381,19 @@
 
       processBtn.onclick = async () => {
         const selectedFiles = Array.from(fileInput.files);
-        if (!selectedFiles.length) { alert("Please upload a file first."); return; }
         
-        // FIXED: The missing bracket was right here!
+        if (!selectedFiles.length) { 
+            alert("Please upload a file first."); 
+            return; 
+        }
         if (activeTool === "merge-pdf" && selectedFiles.length < 2) {
           alert("Merge requires at least 2 PDF files. Please select more files."); 
           return;
-        } 
+        }
+        if (activeTool === "esign-pdf" && selectedFiles.length !== 2) {
+          alert("Please select exactly 2 files: 1 PDF document and 1 Image of your signature. (Hold CTRL while clicking to select both)."); 
+          return;
+        }
 
         let finalExtraParam = "";
         
