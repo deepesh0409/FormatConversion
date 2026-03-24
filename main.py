@@ -152,21 +152,46 @@ async def image_tool_page(request: Request, tool_id: str):
             "seo_desc": seo_data["desc"]
         }
     )
+
+
 # --- SYSTEM FILES ---
 @app.get("/robots.txt")
 async def get_robots_txt():
-    return FileResponse("robots.txt", media_type="text/plain")
+    content = """Sitemap: https://formatconvertion-production.up.railway.app/sitemap.xml
 
+User-agent: *
+Allow: /
+
+# Block bots from crawling our private backend endpoints
+Disallow: /api/
+Disallow: /image-process
+Disallow: /uploads/
+Disallow: /output/
+Disallow: /Static/"""
+    return Response(content=content, media_type="text/plain")
 
 @app.get("/sitemap.xml")
 async def get_sitemap_xml():
-    return FileResponse("sitemap.xml", media_type="application/xml")
+    content = """<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>https://formatconvertion-production.up.railway.app/</loc><priority>1.0</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/pdf_Conversion</loc><priority>0.9</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/Image_Conversion</loc><priority>0.9</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/about</loc><priority>0.8</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/privacy</loc><priority>0.5</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/terms</loc><priority>0.5</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/help</loc><priority>0.7</priority></url>
+  <url><loc>https://formatconvertion-production.up.railway.app/contact</loc><priority>0.7</priority></url>
+</urlset>"""
+    return Response(content=content, media_type="application/xml")
 
-# Optional convenience redirect for /sitemap
-@app.get("/sitemap")
-async def sitemap_redirect():
-    return RedirectResponse(url="/sitemap.xml")
+@app.get("/llms.txt")
+async def get_llms_txt():
+    content = """# FormatConverter
+> Intelligent Document and Image Conversion Tools powered by AI.
 
+FormatConverter is a privacy-first web application that allows users to process, convert, and edit PDFs and Images instantly in their browser."""
+    return Response(content=content, media_type="text/plain")
 
 # ------------------ PDF CONVERSION FUNCTIONS ------------------
 def pdf_to_word_converter(input_path: str) -> str:
